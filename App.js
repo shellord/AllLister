@@ -34,7 +34,7 @@ const Tabs = createBottomTabNavigator()
 
 
 const API_URL = "http://alllisterapi.ddns.net:3000/api/"
-const API_KEY = "AIzaSyD6EMd7Nj_5PcTUOas2JGjgk2gOKtOj0Ic"
+const API_KEY = "AIzaSyAScZ9mwTrPHrYjr68NeYsFqUgaGvrpWLU"
 
 const RootStackScreen = ({userToken,showIntroScreen}) => (
   <RootStack.Navigator headerMode="none">

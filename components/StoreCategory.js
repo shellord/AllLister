@@ -1,53 +1,24 @@
-import React from 'react'
+import React,{useContext,useEffect, useState} from 'react'
 import { View, Text, StyleSheet, Image ,SafeAreaView, TouchableOpacity} from 'react-native'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import Category from '../components/Category'
+import {AuthContext} from '../context'
 
 const StoreCategory = ({navigation}) => {
-    const DATA = [
-        {
-            id:1,
-            imguri:'https://img.icons8.com/ios/400/000000/kawaii-pizza.png',
-            title:'Food'
-        },
-        {
-            id:2,
-            imguri:'https://img.icons8.com/ios/400/000000/automatic.png',
-            title:'Techs'
-        },
-        {
-            id:3,
-            imguri:'https://img.icons8.com/ios/400/000000/home-safety.png',
-            title:'Appliances'
-        },
-        {
-            id:4,
-            imguri:'https://img.icons8.com/ios/400/000000/t-shirt.png',
-            title:'Clothing'
-        },
-        {
-            id:5,
-            imguri:'https://img.icons8.com/ios/480/000000/furniture.png',
-            title:'Furniture'
-        },
-        {
-            id:6,
-            imguri:'https://img.icons8.com/ios/480/000000/ea-sports.png',
-            title:'Sports'
-        },
-        {
-            id:7,
-            imguri:'https://img.icons8.com/ios/480/000000/nail-polish.png',
-            title:'Cosmetics'
-        },
-        {
-            id:8,
-            imguri:'https://img.icons8.com/ios/480/000000/read.png',
-            title:'Books'
-        }
-    ]
 
-   
+    const { API_URL } = useContext(AuthContext)
+    const [storecategories, setstorecategories] = useState([{}])            
+
+    useEffect(() => {
+        fetch(API_URL + 'shopcategory')
+        .then(response => response.json())
+        .then(json => {
+            setstorecategories(json.response)
+        })
+        
+    }, [])
+
+
     return (
         <View style={styles.container} >
             <ScrollView
@@ -70,21 +41,12 @@ const StoreCategory = ({navigation}) => {
                                     horizontal={true}
                                     showsHorizontalScrollIndicator={false}
                                 >
-                                    <Category imageUri={{uri:'https://i.imgur.com/6CvYN5z.jpg'}}
-                                        name="FOOD"
-                                    />
-                                    <Category imageUri={{uri:'https://i.imgur.com/iRJKDHq.jpg'}}
-                                        name="TECHNOLOGY"
-                                    />
-                                    <Category imageUri={{uri:'https://i.imgur.com/fhaqpD1.jpg'}}
-                                        name="BOOKS"
-                                    />
-                                     <Category imageUri={{uri:'https://i.imgur.com/LDVQk5A.jpg'}}
-                                        name="CLOTHING"
-                                    />
-                                     <Category imageUri={{uri:'https://i.imgur.com/GNxvgjW.jpg'}}
-                                        name="FURNITURE"
-                                    />
+                                    {storecategories.map( elem => (
+                                        <Category imageUri={{ uri: elem.image }}
+                                            name={elem.name}
+                                        />
+                                    ))}
+   
                                 </ScrollView>
                                 </View>
                                 </View>

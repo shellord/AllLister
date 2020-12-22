@@ -4,12 +4,13 @@ import { AuthContext } from '../context'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import Constants from 'expo-constants'
 
-const ChangeLocation = () => {
+const ChangeLocation = ({navigation}) => {
 
     const { API_KEY,chgLocation } = useContext(AuthContext)
 
     onPressHandler = (lat,long) =>{
         chgLocation(lat,long)
+        navigation.goBack()
     }
     
     return (
