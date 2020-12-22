@@ -1,13 +1,18 @@
-import React from 'react'
+import React,{useContext,useEffect,useState} from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { AuthContext } from "../context"
 
-const Landmark = () => {
+const Landmark = ({navigation,locationName}) => {
+    const { API_URL } = useContext(AuthContext)  
     return (
-        <View style={styles.locationContainer}>
-            <Text style={styles.locationText}>VALLUVAMBRAM</Text>
-            <Ionicons name="ios-pin" color='#1f1f1f' size={22} style={{marginLeft:5}}/>
-         </View>
+        <TouchableOpacity onPress={() => navigation.push('ChangeLocation')}>
+            <View style={styles.locationContainer}>
+                <Text style={styles.locationText}>{locationName}</Text>
+                <Ionicons name="ios-pin" color='#1f1f1f' size={22} style={{marginLeft:5}}/>
+            </View>
+        </TouchableOpacity>
     )
 }
 

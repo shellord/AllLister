@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { AuthContext } from "./context"
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
@@ -20,7 +20,10 @@ import PrivacyPolicy from './screens/PrivacyPolicy'
 import AboutUs from './screens/AboutUs'
 import NearYou from './screens/NearYou'
 import IntroScreen from './screens/IntroScreen'
-
+import Loading from './components/Loading'
+import * as Location from 'expo-location'
+import Geocoder from 'react-native-geocoding'
+import ChangeLocation from './screens/ChangeLocation'
 
 const RootStack = createStackNavigator()
 const AuthStack = createStackNavigator()
@@ -28,8 +31,10 @@ const HomeStack = createStackNavigator()
 const SearchStack = createStackNavigator()
 const ProfileStack = createStackNavigator()
 const Tabs = createBottomTabNavigator()
-// const Tab = createMaterialTopTabNavigator();
 
+
+const API_URL = "http://alllisterapi.ddns.net:3000/api/"
+const API_KEY = "AIzaSyD6EMd7Nj_5PcTUOas2JGjgk2gOKtOj0Ic"
 
 const RootStackScreen = ({userToken,showIntroScreen}) => (
   <RootStack.Navigator headerMode="none">
@@ -157,7 +162,15 @@ const HomeStackScreen = ({navigation}) => (
         }
     }
     />
-
+    <HomeStack.Screen
+      name="ChangeLocation"
+      component={ChangeLocation}
+      options={
+        {
+          headerShown: false
+        }
+      }
+    />
 
   </HomeStack.Navigator>
 )
@@ -192,34 +205,6 @@ const ProfileStackScreen = () => (
   </ProfileStack.Navigator>
 )
 
-// function MyTabs() {
-//   return (
-//     <Tab.Navigator
-//     initialRouteName="StoreScreen"
-//     tabBarOptions={{
-//       activeTintColor: '#e91e63',
-//       labelStyle: { fontSize: 12 },
-//       style: { backgroundColor: 'powderblue' },
-//     }}
-//   >
-//     <Tab.Screen
-//       name="Feed"
-//       component={Home}
-//       options={{ tabBarLabel: 'Home' }}
-//     />
-//     <Tab.Screen
-//       name="Notifications"
-//       component={Profile}
-//       options={{ tabBarLabel: 'Updates' }}
-//     />
-//     <Tab.Screen
-//       name="StoreScreen"
-//       component={StoreScreen}
-//       options={{ tabBarLabel: 'StoreScreen' }}
-//     />
-//   </Tab.Navigator>
-//   );
-// }
 
 const TabScreen = () => (
   <Tabs.Navigator
@@ -271,10 +256,43 @@ export default function App() {
 
   const [userToken, setuserToken] = useState(null)
   const [showIntroScreen, setShowIntroScreen] = useState(1)
+  const [isInitializing, setisInitializing] = useState(1)
+  const [locationName, setlocationName] = useState(null)
+  const [userLat, setuserLat] = useState(null)
+  const [userLong, setuserLong] = useState(null)
+
+  useEffect(() => {
+    (async () => {
+
+      let { status } = await Location.requestPermissionsAsync()
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied')
+        return
+      }
+      let location = await Location.getCurrentPositionAsync({})
+      setuserLat(location.coords.latitude)
+      setuserLong(location.coords.longitude)
+
+    })()
+  }, [])
+
+  useEffect(() => {
+    if (userLong && userLat) {
+      Geocoder.init(API_KEY)
+      Geocoder.from(userLat, userLong)
+        .then(json => {
+          var addressComponent = json.results[0].address_components[2].long_name
+          setlocationName(addressComponent)
+          setisInitializing(0)
+        })
+        .catch(error => console.warn(error))
+    }
+  }, [userLat,userLong])
 
 	AsyncStorage.getItem("showIntro").then((val) => {
 		if (val !== null) setShowIntroScreen(0)
 	})
+
 
   const authContext = React.useMemo(() => {
     return {
@@ -284,27 +302,42 @@ export default function App() {
       IntroDone: () => {
 				setShowIntroScreen(0)
 				AsyncStorage.setItem("showIntro", "false")
-			},
+      },
+      userLat:userLat,
+      userLong:userLong,
+      locationName:locationName,
+      chgLocation:(lat,long) =>{
+        setuserLat(lat)
+        setuserLong(long)
+      },
+      API_URL:API_URL,
+      API_KEY:API_KEY
     }
-  }, [])
-
+  }, [userLat,userLong,locationName])
 
 Firebase.auth().onAuthStateChanged((user) => {
   if(user){
     setuserToken(user)
+    // setisInitializing(0)
   } else {
     setuserToken(null)
   }
 })
-
+  if(isInitializing || !locationName){
+    return(
+     <Loading />
+    )
+  }
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         <RootStackScreen userToken={userToken} 
-        	showIntroScreen={showIntroScreen}/>
-        
+          showIntroScreen={showIntroScreen}
+        />
       </NavigationContainer>
     </AuthContext.Provider>
-  );
+  )
+
+  
 }
 
