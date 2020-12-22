@@ -1,10 +1,23 @@
-import React , { Component } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View,Image } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import CategoriesList from '../components/CategoriesList'
 import Constants from 'expo-constants';
+import { AuthContext } from '../context'
 
 const Categories = ({navigation}) => {
+    const { API_URL } = React.useContext(AuthContext)
+    const [storecategories, setstorecategories] = useState([{}])
+
+    useEffect(() => {
+        fetch(API_URL + 'shopcategory')
+            .then(response => response.json())
+            .then(json => {
+                setstorecategories(json.response)
+            })
+
+    }, [])
+
     return (
         <>
         <ScrollView style={styles.container}>
@@ -23,27 +36,11 @@ const Categories = ({navigation}) => {
             </TouchableOpacity>
 
             
-             <CategoriesList navigation={navigation} imageUri="https://i.imgur.com/fhaqpD1.jpg"
-                name="BOOKS"
-                />
-             <CategoriesList navigation={navigation} imageUri="https://i.imgur.com/LDVQk5A.jpg"
-                name="CLOTHINGS"
-                />
-             <CategoriesList navigation={navigation} imageUri="https://i.imgur.com/GNxvgjW.jpg"
-                name="FURNITURE"
-                />
-             <CategoriesList navigation={navigation} imageUri="https://i.imgur.com/YKK9yQW.jpg"
-                name="SPORTS - FITNESS"
-                />
-             <CategoriesList navigation={navigation} imageUri="https://i.imgur.com/6LM4Jl0.jpg"
-                name="COSMETICS"
-                />
-             <CategoriesList navigation={navigation} imageUri="https://i.imgur.com/viWZfQI.jpg"
-                name="MEDICAL"
-                />
-             <CategoriesList navigation={navigation} imageUri="https://i.imgur.com/zX29Ggi.jpeg"
-                name="HOME APPLIANCE"
-                />
+                {storecategories.map(elem => (
+                    <CategoriesList navigation={navigation} imageUri={elem.image}
+                        name={elem.name}
+                    />
+                ))}
                
         </ScrollView>
         </>

@@ -1,104 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View,ScrollView } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler' 
 import MaterialStoreCard from '../components/MaterialStoreCard'
+import { AuthContext } from '../context'
 import Constants from 'expo-constants'
 
 const NearYou = ({navigation}) => {
-    const DATA = [
-        {
-            id:1,
-            name:'Baken Valley',
-            tel:'+91 9876543210',
-            distance:'2 KM',
-            time:'9:00 A.M - 11:00 P.M',
-            logoUri:'https://i.imgur.com/jPPKeve.png',
-            storeImg:'https://i.imgur.com/xUudfbW.jpg',
-        },
-        {
-            id:2,
-            name:'365 Chicken Grill',
-            tel:'+91 9876543210',
-            distance:'3 KM',
-            time:'9:00 A.M - 11:00 P.M',
-            logoUri:'https://i.imgur.com/AHT8IKq.png',
-            storeImg:'https://i.imgur.com/qCYyqoP.jpg',
-            
-        },
-        {
-            id:3,
-            name:'Apple Store',
-            tel:'+91 9876543210',
-            distance:'10 KM',
-            time:'9:00 A.M - 11:00 P.M',
-            logoUri:'https://i.imgur.com/Lelr7hY.png',
-            storeImg:'https://i.imgur.com/CmYrCxh.jpg',
-        },
-        {
-            id:1,
-            name:'Baken Valley',
-            tel:'+91 9876543210',
-            distance:'2 KM',
-            time:'9:00 A.M - 11:00 P.M',
-            logoUri:'https://i.imgur.com/jPPKeve.png',
-            storeImg:'https://i.imgur.com/xUudfbW.jpg',
-        },
-        {
-            id:2,
-            name:'365 Chicken Grill',
-            tel:'+91 9876543210',
-            distance:'3 KM',
-            time:'9:00 A.M - 11:00 P.M',
-            logoUri:'https://i.imgur.com/AHT8IKq.png',
-            storeImg:'https://i.imgur.com/qCYyqoP.jpg',
-            
-        },
-        {
-            id:3,
-            name:'Apple Store',
-            tel:'+91 9876543210',
-            distance:'10 KM',
-            time:'9:00 A.M - 11:00 P.M',
-            logoUri:'https://i.imgur.com/Lelr7hY.png',
-            storeImg:'https://i.imgur.com/CmYrCxh.jpg',
-        },
-        {
-            id:1,
-            name:'Baken Valley',
-            tel:'+91 9876543210',
-            distance:'2 KM',
-            time:'9:00 A.M - 11:00 P.M',
-            logoUri:'https://i.imgur.com/jPPKeve.png',
-            storeImg:'https://i.imgur.com/xUudfbW.jpg',
-        },
-        {
-            id:2,
-            name:'365 Chicken Grill',
-            tel:'+91 9876543210',
-            distance:'3 KM',
-            time:'9:00 A.M - 11:00 P.M',
-            logoUri:'https://i.imgur.com/AHT8IKq.png',
-            storeImg:'https://i.imgur.com/qCYyqoP.jpg',
-            
-        },
-        {
-            id:3,
-            name:'Apple Store',
-            tel:'+91 9876543210',
-            distance:'10 KM',
-            time:'9:00 A.M - 11:00 P.M',
-            logoUri:'https://i.imgur.com/Lelr7hY.png',
-            storeImg:'https://i.imgur.com/CmYrCxh.jpg',
-        }
-    ]
+    const { API_URL } = React.useContext(AuthContext)
+    const [shops, setshops] = useState([{}])
+
+    useEffect(() => {
+        fetch(API_URL + 'shop/10.8505/76.2711/10')
+            .then(response => response.json())
+            .then(json => {
+                setshops(json.response)
+                console.log(shops)
+            }).catch(e => console.log(e))
+    }, [])
     const renderItem = ({item}) =>(
-        <MaterialStoreCard navigation={navigation} id={item.id} name={item.name} storeImg={item.storeImg} logoUri={item.logoUri} tel={item.tel} distance={item.distance} details={item.details} time={item.time}/>
+        <MaterialStoreCard navigation={navigation} id={item.id} name={item.shopname} storeImg={item.shopimage} logoUri={item.logo} tel={item.mobilenumber} distance={item.distance} otime={item.openingtime} ctime={item.closingtime} />
     )
     return (
         <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.titleStyle}>NEAR YOU</Text>
         <FlatList
-            data={DATA}
+            data={shops}
             renderItem={renderItem}
             keyExtractor={item => item.id}
         />
