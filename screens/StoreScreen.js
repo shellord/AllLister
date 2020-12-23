@@ -1,14 +1,30 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View ,Image,Linking,SafeAreaView} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-
 import ProductScroll from '../components/ProdcutScroll'
 import ProductFlatList from '../components/ProductFlatList';
 import StoreSearchCard from '../components/StoreSearchCard'
+import { AuthContext } from '../context'
 
 const StoreScreen = ({navigation,route}) => {
-    const { itemId,itemName,itemDistance,itemTel,itemTime,itemImg} = route.params;
+    const { itemId,itemName,itemDistance,itemTel,otime,ctime,itemImg,category} = route.params;
+    const { API_URL } = useContext(AuthContext)
+    const [products, setproducts] = useState([{}])
+    const [shopname, setshopname] = useState('')
+    useEffect(() => {
+        fetch(API_URL + 'shop/'+itemId)
+            .then(response => response.json())
+            .then(json => {
+                setproducts(json.response)
+            }).catch(e =>alert("Network Error!"))
+
+        fetch(API_URL + 'shop/id/' + itemId)
+            .then(response => response.json())
+            .then(json => {
+                setshopname(json.response[0].shopname)
+            }).catch(e => alert("Network Error!"))
+    }, [])
 
    
   
@@ -19,25 +35,25 @@ const StoreScreen = ({navigation,route}) => {
         <View style={{flexDirection:'row',justifyContent:'space-between'}} onPress={() => Keyboard.dismiss()}>
         <View style={{flexDirection:'column'}} onPress={() => Keyboard.dismiss()}>
         <Text style={styles.itemText}> {itemName}</Text>
-        <Text style={styles.catText}> Food & Grocery</Text>
-        <Text style={styles.catText}> {itemTime}</Text>
+        <Text style={styles.catText}> {category}</Text>
+        <Text style={styles.catText}> {otime}-{ctime}</Text>
         </View>
         <View style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}} onPress={() => Keyboard.dismiss()}>
-        <TouchableOpacity onPress={()=>{Linking.openURL('tel:{itemTel}');} } style={styles.callBtn} >
+        <TouchableOpacity onPress={()=>{Linking.openURL(`tel:${itemTel}`);} } style={styles.callBtn} >
         <Icon name="phone" size={20} color="black" />
         <Text style={styles.disText}> Call</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.locBtn} >
         <Icon name="location-arrow" size={20} color="black" />
-        <Text style={styles.disText}> {itemDistance}</Text>
+        <Text style={styles.disText}> {Math.round(itemDistance)} km</Text>
         </TouchableOpacity>
         </View>
         </View>
         <View style={styles.searchView}>
         <StoreSearchCard navigation={navigation}/>
         </View>
-        <Text style={styles.detText}> MORE PRODUCTS</Text>
-        <ProductFlatList navigation={navigation}/>
+        <Text style={styles.detText}> STORE PRODUCTS</Text>
+        <ProductFlatList navigation={navigation} data={products} shopname={shopname} itemTel={itemTel}/>
         </View>
         </ScrollView>
     )

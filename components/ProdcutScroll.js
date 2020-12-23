@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View ,Image,TouchableOpacity } from 'react-native'
 
-const ProdcutScroll = ({id,title,price,category,description,navigation,imageUri,shopName}) => {
+const ProdcutScroll = ({id,title,price,category,description,navigation,imageUri,shopName,itemTel}) => {
     return (
         <TouchableOpacity onPress={() =>{ navigation.navigate('productscreen',{
             itemId: id,
@@ -11,6 +11,7 @@ const ProdcutScroll = ({id,title,price,category,description,navigation,imageUri,
             itemDescription:description,
             itemImage:imageUri,
             itemShopName:shopName,
+            itemTel:itemTel
           });
         }}>
         <View style={styles.container}>

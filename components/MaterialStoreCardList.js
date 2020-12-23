@@ -6,20 +6,19 @@ import {AuthContext} from '../context'
 
 const MaterialStoreCardList = ({navigation}) => {
 
-    const {API_URL} = React.useContext(AuthContext)
+    const { API_URL, userLat,userLong} = React.useContext(AuthContext)
     const [shops, setshops] = useState([{}])
-
+    
     useEffect(() => {
-        fetch(API_URL + 'shop/10.8505/76.2711/10')
+        fetch(API_URL + 'shop/' + userLat + '/' + userLong+'/10')
             .then(response => response.json())
             .then(json => {
                 setshops(json.response)
-                console.log(shops)
             }).catch(e => console.log(e))
-    }, [])
+    }, [userLat,userLong])
 
     const renderItem = ({item}) =>(
-        <MaterialStoreCard navigation={navigation} id={item.id} name={item.shopname} storeImg={item.shopimage} logoUri={item.logo} tel={item.mobilenumber} distance={item.distance} otime={item.openingtime} ctime={item.closingtime}/>
+        <MaterialStoreCard navigation={navigation} id={item.id} name={item.shopname} storeImg={item.shopimage} logoUri={item.logo} tel={item.mobilenumber} distance={item.distance} otime={item.openingtime} ctime={item.closingtime} category={item.category}/>
     )
     return (
         <View style={styles.container}>

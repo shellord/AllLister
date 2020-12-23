@@ -4,7 +4,7 @@ import { StyleSheet, Text, View,Image } from 'react-native'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const MaterialStoreCard = ({id,name,tel,distance,otime,ctime,navigation,logoUri,storeImg}) => {
+const MaterialStoreCard = ({id,name,tel,distance,otime,ctime,navigation,logoUri,storeImg,category}) => {
     return (
         
         <TouchableWithoutFeedback onPress={() =>{ navigation.navigate('storescreen',{
@@ -12,8 +12,10 @@ const MaterialStoreCard = ({id,name,tel,distance,otime,ctime,navigation,logoUri,
             itemName:name,
             itemTel:tel,
             itemDistance:distance,
-            itemTime:time,
-            itemImg:storeImg
+            otime:otime,
+            ctime:ctime,
+            itemImg:storeImg,
+            category:category
           });
         }}>
         <View style={styles.container}>
@@ -25,7 +27,7 @@ const MaterialStoreCard = ({id,name,tel,distance,otime,ctime,navigation,logoUri,
                 <Text style={styles.timeTitle}>{otime} - {ctime}</Text>
                 <View style={{flexDirection:'row', alignItems:'center'}}>
                 <Icon name="location-arrow" size={14} color="black" />
-                <Text style={styles.distanceTitle}>{distance}</Text>
+                <Text style={styles.distanceTitle}>{Math.round(distance)} km</Text>
                 </View>
             </View>
             </View>

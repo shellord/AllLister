@@ -9,47 +9,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const Product = ({navigation,route}) => {
-    const { itemId,itemTitle,itemPrice,itemCategory,itemDescription,itemImage,itemShopName} = route.params;
+    const { itemId,itemTitle,itemPrice,itemCategory,itemDescription,itemImage,itemShopName,itemTel} = route.params;
     const { width, height } = Dimensions.get('window')
-        
-    // const Images = [
-    //     {
-    //     original: 'https://picsum.photos/id/1018/1000/600/',
-    //     thumbnail: 'https://picsum.photos/id/1018/250/150/',
-    //     },
-    //     {
-    //     original: 'https://picsum.photos/id/1015/1000/600/',
-    //     thumbnail: 'https://picsum.photos/id/1015/250/150/',
-    //     },
-    //     {
-    //     original: 'https://picsum.photos/id/1019/1000/600/',
-    //     thumbnail: 'https://picsum.photos/id/1019/250/150/',
-    //     },
-    // ];
-
-    // const mobileNumber= '9656567348';
-    // const [whatsAppMsg, setWhatsAppMsg] = useState(
-    //   '{itemTitle}'
-    // );
-
-    // const initiateWhatsAppSMS = () => {
-    //     // Check for perfect 10 digit length
-    //     if (mobileNumber.length != 10) {
-    //       alert('Please insert correct contact number');
-    //       return;
-    //     }
-    //     // Using 91 for India
-    //     // You can change 91 with your country code
-    //     let url =
-    //       'whatsapp://send?text=' + whatsAppMsg + '&phone=91' + mobileNumber;
-    //     Linking.openURL(url)
-    //       .then((data) => {
-    //         console.log('WhatsApp Opened');
-    //       })
-    //       .catch(() => {
-    //         alert('Make sure Whatsapp installed on your device');
-    //       });
-    //   };
+ 
     
 
     return (
@@ -74,7 +36,7 @@ const Product = ({navigation,route}) => {
         <Text style={styles.itemPriceFooter}>TOTAL PRICE</Text>
         </View>
         {/* <TouchableOpacity  onPress={initiateWhatsAppSMS}> */}
-        <TouchableOpacity onPress={() =>{ navigation.navigate('storescreen')}}>
+        <TouchableOpacity onPress={() => { Linking.openURL(`tel:${itemTel}`); }} >
          <View style={styles.footerContact}>
             <Text style={styles.contactText}>CONTACT SHOP</Text>
         </View>
