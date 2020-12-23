@@ -13,7 +13,6 @@ const HomeProductCardList = ({navigation}) => {
       .then(response => response.json())
       .then(json => {
         setfeaturedproducts(json.response)
-        console.log(featuredproducts)
       }).catch(e => console.log(e))
 
   }, [])

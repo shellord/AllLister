@@ -5,8 +5,8 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler'
 
 const { width, height } = Dimensions.get('window')
 
-const Carousel = ({route,itemImage}) => {
-
+const Carousel = ({route,data}) => {
+    console.log(data)
     const DATA = [
 
         {
@@ -27,19 +27,26 @@ const Carousel = ({route,itemImage}) => {
         }
     ]
 
-    const renderItem = ({item}) =>(
+    const renderItem = ({item}) =>
+    {
+        let img=''
+        // console.log(JSON.parse(item.image))
+        // item.image ? img = JSON.parse(item.image)[0].name:null
+    return(
         <View style={{flex:1,flexDirection:'column'}}>
             <Text style={{alignSelf:'center', color:'grey'}}>- SWIPE TO SEE PRODUCT IMAGES -</Text>
-      <Image 
+
+      {/* <Image 
         style={styles.imageStyle}
-        source={{uri:item.imguri}}
-      />  
+        source={{uri:item.image}}
+      />   */}
       </View>
     )
+    }
     return (
             <FlatList 
                 style={styles.container}
-                data={DATA}
+                data={data}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
                 horizontal={true}

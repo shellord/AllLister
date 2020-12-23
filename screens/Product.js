@@ -1,32 +1,53 @@
-import React , {useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View,Image,TouchableOpacity,Dimensions,Linking } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import Carousel from '../components/Carousel'
 import ProductFlatList from '../components/ProductFlatList';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { AuthContext } from '../context'
 // import ImageGallery from 'react-image-gallery';
 
 
 const Product = ({navigation,route}) => {
     const { itemId,itemTitle,itemPrice,itemCategory,itemDescription,itemImage,itemShopName,itemTel} = route.params;
     const { width, height } = Dimensions.get('window')
- 
     
+    const { API_URL } = useContext(AuthContext)
+    const [relatedproducts, setrelatedproducts] = useState([{}])
+    const [producImages, setproducImages] = useState([{}])
+
+    useEffect(() => {
+
+        fetch(API_URL + 'productimage/' + itemId)
+            .then(response => response.json())
+            .then(json => {
+                setproducImages(json.response)
+                console.log(producImages)
+            }).catch(e => alert("Network Error!"))
+
+        fetch(API_URL + 'product/category/' + itemCategory)
+            .then(response => response.json())
+            .then(json => {
+                setrelatedproducts(json.response.filter(e => e.id != itemId))
+            }).catch(e => alert("Network Error!"))
+
+    }, [])
+
 
     return (
         <>
         <ScrollView style={styles.container}>
         {/* <ImageGallery items={Images}/> */}
         {/* <Image source={{uri:'https://i.imgur.com/HzqIYjc.png'}} style={styles.imageStyle} /> */}
-        <Carousel />
+        <Carousel data={producImages}/>
         <Text style={styles.itemTitle}> {itemTitle}</Text>
         <Text style={styles.categoryTitle}> {itemCategory} </Text>
         <Text style={styles.shopName}>Seller : {itemShopName}</Text>
         <Text style={styles.detailsText}> DETAILS </Text>
         <Text style={styles.itemDescription}> {itemDescription}</Text>
         <Text style={styles.detailsText} > RELATED PRODUCTS </Text>
-        <ProductFlatList navigation={navigation}/>
+                <ProductFlatList navigation={navigation} data={relatedproducts} shopname={itemShopName} itemTel={itemTel}/>
     
        
         </ScrollView>

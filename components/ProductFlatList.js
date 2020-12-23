@@ -6,7 +6,6 @@ import ProductScroll from '../components/ProdcutScroll'
 
 
 const ProductFlatList = ({navigation,data,shopname,itemTel}) => {
-  console.log(data)
   const renderItem = ({ item }) => (
     <ProductScroll navigation={navigation} id={item.id} shopName={shopname} itemTel={itemTel} title={item.name} imageUri={item.image} category={item.category} price={item.price} description={item.description}/>
   );

@@ -12,7 +12,9 @@ const SearchCard = ({navigation}) => {
             placeholder='SEARCH FOR PRODUCTS & SHOPS'
             value={text}
             onChangeText={text => setText(text)}
-            onSubmitEditing={() => navigation.navigate('Search')}/> 
+            onSubmitEditing={() => navigation.navigate('Search', {
+                searchTerm: text
+            })}/> 
             <Icon style={styles.icon}  name="search" size={14} color="black" />
         </View>
     )
