@@ -7,6 +7,7 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
     const { API_URL, UPLOAD_URL } = useContext(AuthContext)
     const [shopname, setshopname] = useState('')
     const [shopnumber, setshopnumber] = useState('')
+    
     let img = ''
     imageUri ? img = UPLOAD_URL + JSON.parse(imageUri)[0].name.replace('/var/www/html/', '') : null
     let dist=''

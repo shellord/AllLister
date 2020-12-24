@@ -12,7 +12,6 @@ const CategoryProductList = ({ navigation,category}) => {
         fetch(API_URL + 'product/category/' + category+"/"+userLat+"/"+userLong)
             .then(response => response.json())
             .then(json => {
-                console.log(json)
                 setproductlist(json.response)
             }).catch(e => console.log(e))
 
@@ -20,7 +19,7 @@ const CategoryProductList = ({ navigation,category}) => {
 
     const renderItem = ({ item }) => (
         item.shopid ?
-            <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} distance={item.distance} />
+            <HomeProductCard navigation={navigation} id={item.productid} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} distance={item.distance} />
             : null
     )
 

@@ -19,23 +19,24 @@ const Product = ({ navigation, route }) => {
     const [instock, setinstock] = useState(1)
 
     useEffect(() => {
+        console.log(API_URL + 'product/' + itemId)
         fetch(API_URL + 'product/' + itemId)
             .then(response => response.json())
             .then(json => {
                 setinstock(json.response[0].instock)
-            }).catch(e => alert("Network Error!"))
+            }).catch(e => alert("Network Error!!!!!"))
 
         fetch(API_URL + 'productimage/' + itemId)
             .then(response => response.json())
             .then(json => {
                 setproducImages(json.response)
-            }).catch(e => alert("Network Error!"))
+            }).catch(e => alert("Network Error!!"))
 
         fetch(API_URL + 'product/category/' + itemCategory)
             .then(response => response.json())
             .then(json => {
                 setrelatedproducts(json.response.filter(e => e.id != itemId))
-            }).catch(e => alert("Network Error!"))
+            }).catch(e => alert("Network Error!!!"))
 
     }, [itemId])
 
