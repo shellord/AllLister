@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
         fontSize:16,
         marginBottom:10 ,
         fontWeight:'600',
-        textTransform:'uppercase'    
+        textTransform:'uppercase',
+        marginLeft:3
     },
     infoContainer:{
         flexDirection:'row',

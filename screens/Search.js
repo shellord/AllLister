@@ -14,7 +14,6 @@ const Search = ({ navigation, route }) => {
     const [searchtext, setsearchtext] = useState(searchTerm)
     const [shops, setshops] = useState([{}])
     const [products, setproducts] = useState([{}])
-
     useEffect(() => {
 
         if (searchtext) {
@@ -27,7 +26,7 @@ const Search = ({ navigation, route }) => {
                 .then(response => response.json())
                 .then(json => {
                     setshops(json.response)
-                    
+
                 }).catch(e => console.log(e))
         }
     }, [searchtext])
@@ -47,23 +46,26 @@ const Search = ({ navigation, route }) => {
 
             <View style={styles.searchContainer}>
                 <Icon style={styles.icon} name="search" size={14} color="black" />
-                <TextInput style={styles.TextInp} onChangeText={text => setsearchtext(text)} value={searchtext}/>
+                <TextInput placeholder="Search for products and shop" style={styles.TextInp} onChangeText={text => setsearchtext(text)} value={searchtext} />
             </View>
-    
-             <FlatList
+
+            {shops.length != 1 ? <FlatList
                 data={shops}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
-            />
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                showsScroll={false}
-                numColumns={2}
-                data={products}
-                renderItem={productrenderItem}
-                keyExtractor={item => item.id}
-            />
+            />:null}
+           {products.length !=1?
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    showsScroll={false}
+                    numColumns={2}
+                    data={products}
+                    renderItem={productrenderItem}
+                    keyExtractor={item => item.id}
+                />:null
 
+            }
+            
         </ScrollView>
     )
 }
@@ -79,8 +81,8 @@ const styles = StyleSheet.create({
     searchContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        borderColor: 'black',
-        borderWidth: 1,
+        borderColor: 'grey',
+        borderWidth: 0.5,
         height: 30,
         alignItems: 'center'
     },
