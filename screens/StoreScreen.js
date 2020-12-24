@@ -6,10 +6,11 @@ import ProductScroll from '../components/ProdcutScroll'
 import ProductFlatList from '../components/ProductFlatList';
 import StoreSearchCard from '../components/StoreSearchCard'
 import { AuthContext } from '../context'
+import Constants from 'expo-constants'
 
 const StoreScreen = ({navigation,route}) => {
     const { itemId,itemName,itemDistance,itemTel,otime,ctime,itemImg,category} = route.params;
-    const { API_URL } = useContext(AuthContext)
+    const { API_URL,UPLOAD_URL } = useContext(AuthContext)
     const [products, setproducts] = useState([{}])
     const [shopname, setshopname] = useState('')
     useEffect(() => {
@@ -26,11 +27,11 @@ const StoreScreen = ({navigation,route}) => {
             }).catch(e => alert("Network Error!"))
     }, [])
 
-   
+    let img = UPLOAD_URL+JSON.parse(itemImg)[0].name.replace('/var/www/html/','')
   
     return (
         <ScrollView style={styles.container} onPress={() => Keyboard.dismiss()}>
-        <Image source={{uri:itemImg}} style={styles.imageStyle} />
+        <Image source={{uri:img}} style={styles.imageStyle} />
         <View style={styles.textContainer} onPress={() => Keyboard.dismiss()}>
         <View style={{flexDirection:'row',justifyContent:'space-between'}} onPress={() => Keyboard.dismiss()}>
         <View style={{flexDirection:'column'}} onPress={() => Keyboard.dismiss()}>
@@ -64,7 +65,8 @@ export default StoreScreen
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor:'white',
+        paddingTop:Constants.statusBarHeight
     },
     textContainer:{
         flex:1,

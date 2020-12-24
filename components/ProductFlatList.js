@@ -1,14 +1,20 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 import ProductScroll from '../components/ProdcutScroll'
-
+import {AuthContext} from '../context'
 
 
 
 const ProductFlatList = ({navigation,data,shopname,itemTel}) => {
-  const renderItem = ({ item }) => (
-    <ProductScroll navigation={navigation} id={item.id} shopName={shopname} itemTel={itemTel} title={item.name} imageUri={item.image} category={item.category} price={item.price} description={item.description}/>
-  );
+
+  const {UPLOAD_URL} = useContext(AuthContext)
+  const renderItem = ({ item }) => {
+    let img = ''
+    item.image? img= UPLOAD_URL + JSON.parse(item.image)[0].name.replace('/var/www/html/',''):null
+    return(
+      <ProductScroll navigation={navigation} id={item.id} shopName={shopname} itemTel={itemTel} title={item.name} imageUri={img} category={item.category} price={item.price} description={item.description}/>
+    )
+  }
 
   return (
       <FlatList
