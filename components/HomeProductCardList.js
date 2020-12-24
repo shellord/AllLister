@@ -18,7 +18,7 @@ const HomeProductCardList = ({navigation}) => {
   }, [])
 
   const renderItem = ({ item }) => (
-    <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopName={item.shopName} imageUri={item.imageUri} category={item.category} price={item.price} description={item.description}/>
+    <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopName={item.shopName} imageUri={item.image} category={item.category} price={item.price} description={item.description}/>
   )
 
   return (

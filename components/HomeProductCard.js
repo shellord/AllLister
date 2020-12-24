@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View ,Image,TouchableOpacity } from 'react-native'
+import { AuthContext } from '../context'
 
 const HomeProductCard = ({id,title,price,category,description,navigation,imageUri,shopName}) => {
+
+    const { UPLOAD_URL } = useContext(AuthContext)
+    let img = ''
+    imageUri ? img = UPLOAD_URL + JSON.parse(imageUri)[0].name.replace('/var/www/html/', '') : null
+
     return (
         <TouchableOpacity onPress={() =>{ navigation.navigate('productscreen',{
             itemId: id,
@@ -17,7 +23,7 @@ const HomeProductCard = ({id,title,price,category,description,navigation,imageUr
             <View style={{flexDirection:'row',justifyContent:'center'}}>  
             <Image
             style={styles.tinyLogo}
-            source={{uri:imageUri}}
+            source={{uri:img}}
             />
             </View> 
             <View style={styles.detailsContainer}>
@@ -41,7 +47,7 @@ const styles = StyleSheet.create({
         marginTop:20,
         backgroundColor:'white',
         width:150,
-        height:250,
+        // height:290,
         // borderRadius:30,
         marginRight:25,
         borderColor:'black',

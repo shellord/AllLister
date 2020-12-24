@@ -34,6 +34,7 @@ const Tabs = createBottomTabNavigator()
 
 
 const API_URL = "http://alllisterapi.ddns.net:3000/api/"
+const UPLOAD_URL = "http://alllisterapi.ddns.net/"
 const API_KEY = "AIzaSyAScZ9mwTrPHrYjr68NeYsFqUgaGvrpWLU"
 
 const RootStackScreen = ({userToken,showIntroScreen}) => (
@@ -311,23 +312,49 @@ export default function App() {
         setuserLong(long)
       },
       API_URL:API_URL,
+      UPLOAD_URL:UPLOAD_URL,
       API_KEY:API_KEY
     }
   }, [userLat,userLong,locationName])
 
-Firebase.auth().onAuthStateChanged((user) => {
-  if(user){
-    setuserToken(user)
-    // setisInitializing(0)
-  } else {
-    setuserToken(null)
+  const checkReg = (user) => {
+    fetch(API_URL + `users/${user.phoneNumber}`)
+      .then((response) => response.json())
+      .then((json) => {
+        try {
+          if (json.response.length==0) {
+            fetch(API_URL + `adduser/${user.phoneNumber}`)
+              .catch(e => alert("Network Error!")) 
+          } 
+         
+        }
+        catch (e) {
+        
+        }
+        // if(Object.keys(json.response).length!=0){
+        //   setisFinishedSignup(1)
+        // }
+
+      })
+      .catch((error) => {
+        alert(error)
+      })
+
   }
-})
-  if(isInitializing || !locationName){
-    return(
-     <Loading />
-    )
-  }
+  Firebase.auth().onAuthStateChanged((user) => {
+    if(user){
+      checkReg(user)
+      setuserToken(user)
+      // setisInitializing(0)
+    } else {
+      setuserToken(null)
+    }
+  })
+    if(isInitializing || !locationName){
+      return(
+      <Loading />
+      )
+    }
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>

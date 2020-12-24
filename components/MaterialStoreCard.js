@@ -1,10 +1,15 @@
 import { NavigationHelpersContext } from '@react-navigation/native'
-import React from 'react'
+import React,{useContext} from 'react'
 import { StyleSheet, Text, View,Image } from 'react-native'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { AuthContext } from '../context'
 
 const MaterialStoreCard = ({id,name,tel,distance,otime,ctime,navigation,logoUri,storeImg,category}) => {
+    const { UPLOAD_URL } = useContext(AuthContext)
+
+    let img = ''
+    logoUri ? img =UPLOAD_URL + JSON.parse(logoUri)[0].name.replace('/var/www/html/',''):null
     return (
         
         <TouchableWithoutFeedback onPress={() =>{ navigation.navigate('storescreen',{
@@ -20,7 +25,7 @@ const MaterialStoreCard = ({id,name,tel,distance,otime,ctime,navigation,logoUri,
         }}>
         <View style={styles.container}>
             <View style={styles.mainContainer}>
-            <Image source={{uri:logoUri}} style={styles.imageStyle} />
+            <Image source={{uri:img}} style={styles.imageStyle} />
             <View style={styles.textContainer}>
                 <Text style={styles.mainTitle}>{name}</Text>
                 <Text style={styles.telTitle}>{tel}</Text>

@@ -3,6 +3,7 @@ import { Keyboard, StyleSheet, Text, View, TextInput, FlatList } from 'react-nat
 import { ScrollView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import MaterialStoreCard from '../components/MaterialStoreCard'
+import HomeProductCard from '../components/HomeProductCard'
 import { AuthContext } from '../context'
 
 const Search = ({ navigation, route }) => {
@@ -19,8 +20,7 @@ const Search = ({ navigation, route }) => {
         console.log(searchtext)
 
         if (searchtext) {
-            console.log(API_URL + "psearch/" + searchtext)
-            fetch(API_URL + "ssearch/" + searchtext)
+            fetch(API_URL + "psearch/" + searchtext)
                 .then(response => response.json())
                 .then(json => {
                     setproducts(json.response)
@@ -38,6 +38,11 @@ const Search = ({ navigation, route }) => {
     const renderItem = ({ item }) => (
         <MaterialStoreCard navigation={navigation} id={item.id} name={item.shopname} storeImg={item.shopimage} logoUri={item.logo} tel={item.mobilenumber} distance={item.distance} otime={item.openingtime} ctime={item.closingtime} category={item.category} />
     )
+
+    const productrenderItem = ({ item }) => (
+        <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopName={item.shopName} imageUri={item.imageUri} category={item.category} price={item.price} description={item.description} />
+    )
+
     return (
 
         <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center', alignSelf: 'center', flex: 1 }}>
@@ -47,10 +52,18 @@ const Search = ({ navigation, route }) => {
                 <Icon style={styles.icon} name="search" size={14} color="black" />
                 <TextInput style={styles.TextInp} onChangeText={text => setsearchtext(text)} />
             </View>
-
+    
              <FlatList
                 data={shops}
                 renderItem={renderItem}
+                keyExtractor={item => item.id}
+            />
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                showsScroll={false}
+                numColumns={2}
+                data={products}
+                renderItem={productrenderItem}
                 keyExtractor={item => item.id}
             />
 

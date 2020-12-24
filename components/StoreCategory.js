@@ -10,10 +10,12 @@ const StoreCategory = ({ navigation }) => {
     const [storecategories, setstorecategories] = useState([{}])
 
     useEffect(() => {
+        console.log(API_URL + 'shopcategory')
         fetch(API_URL + 'shopcategory')
             .then(response => response.json())
             .then(json => {
                 setstorecategories(json.response)
+                console.log(storecategories)
             })
 
     }, [])
