@@ -1,13 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View ,Image,TouchableOpacity } from 'react-native'
 import { AuthContext } from '../context'
 
-const HomeProductCard = ({id,title,price,category,description,navigation,imageUri,shopName}) => {
+const HomeProductCard = ({id,title,price,category,description,navigation,imageUri,shopId}) => {
 
-    const { UPLOAD_URL } = useContext(AuthContext)
+    const { API_URL,UPLOAD_URL } = useContext(AuthContext)
+    const [shopname, setshopname] = useState('')
+
+    useEffect(() => {
+       fetch(API_URL+'shop/id/'+shopId)
+       .then(response => response.json())
+       .then(json => {
+            setshopname(json.response[0].shopname)
+       }).catch(e => alert("Network Error!"))
+    }, [])
     let img = ''
     imageUri ? img = UPLOAD_URL + JSON.parse(imageUri)[0].name.replace('/var/www/html/', '') : null
-
     return (
         <TouchableOpacity onPress={() =>{ navigation.navigate('productscreen',{
             itemId: id,
@@ -16,7 +24,7 @@ const HomeProductCard = ({id,title,price,category,description,navigation,imageUr
             itemCategory:category,
             itemDescription:description,
             itemImage:imageUri,
-            itemShopName:shopName,
+            itemShopName:shopname,
           });
         }}>
         <View style={styles.container}>
@@ -34,6 +42,8 @@ const HomeProductCard = ({id,title,price,category,description,navigation,imageUr
             {category}
             </Text>
             <Text style={styles.priceTag}> {price} </Text>
+             <Text> {shopname} </Text>
+
             </View>
         </View>
         </TouchableOpacity>

@@ -18,7 +18,7 @@ const Product = ({navigation,route}) => {
     const [producImages, setproducImages] = useState([{}])
 
     useEffect(() => {
-
+        
         fetch(API_URL + 'productimage/' + itemId)
             .then(response => response.json())
             .then(json => {
@@ -31,7 +31,7 @@ const Product = ({navigation,route}) => {
                 setrelatedproducts(json.response.filter(e => e.id != itemId))
             }).catch(e => alert("Network Error!"))
 
-    }, [])
+    }, [itemId])
 
 
     return (

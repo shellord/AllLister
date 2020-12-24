@@ -18,8 +18,10 @@ const HomeProductCardList = ({navigation}) => {
   }, [])
 
   const renderItem = ({ item }) => (
-    <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopName={item.shopName} imageUri={item.image} category={item.category} price={item.price} description={item.description}/>
-  )
+    item.shopid?
+    <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description}/>
+    :null
+    )
 
   return (
       <SafeAreaView style={styles.container}>
