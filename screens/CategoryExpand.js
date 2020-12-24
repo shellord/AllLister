@@ -5,17 +5,17 @@ import Constants from 'expo-constants'
 import { TabBar } from 'react-native-tab-view';
 import HomeProductCardList from '../components/HomeProductCardList'
 import MaterialStoreCardList from '../components/MaterialStoreCardList'
-
+import CategoryProductList from '../components/CategoryProductList'
 
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-export default function CategoryExpand({ navigation }) {
-
+export default function CategoryExpand({ navigation,route }) {
+    // console.log(route.params.category)
     const FirstRoute = () => {
         return (
             <View style={[styles.scene, { backgroundColor: 'white' }]} >
-                <HomeProductCardList navigation={navigation} />
+                <CategoryProductList navigation={navigation} category={route.params.category}/>
             </View>
         )
     }

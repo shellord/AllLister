@@ -26,7 +26,7 @@ const Categories = ({navigation}) => {
 
                     {storecategories.map(elem => {            
                         return(
-                            <TouchableOpacity onPress={() => { navigation.navigate('categoryexpand') }}>
+                            <TouchableOpacity onPress={() => { navigation.navigate('categoryexpand',{category:elem.name}) }}>
 
                         <CategoriesList navigation={navigation} imageUri={elem.image}
                             name={elem.name}

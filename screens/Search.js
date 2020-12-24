@@ -8,7 +8,8 @@ import { AuthContext } from '../context'
 
 const Search = ({ navigation, route }) => {
 
-    const { API_URL } = useContext(AuthContext)
+    const { API_URL, userLat, userLong } = useContext(AuthContext)
+
     let searchTerm = ''
     route.params ? searchTerm = route.params.searchTerm : ''
     const [searchtext, setsearchtext] = useState(searchTerm)
@@ -17,16 +18,21 @@ const Search = ({ navigation, route }) => {
     useEffect(() => {
 
         if (searchtext) {
+
             fetch(API_URL + "psearch/" + searchtext)
                 .then(response => response.json())
                 .then(json => {
                     setproducts(json.response)
                 }).catch(e => console.log(e))
-            fetch(API_URL + "ssearch/" + searchtext)
+
+            console.log(API_URL + "ssearch/" + userLat + "/" + userLong + "/" + searchtext)
+
+            fetch(API_URL + "ssearch/" +userLat+"/"+userLong+"/"+searchtext)
                 .then(response => response.json())
                 .then(json => {
                     setshops(json.response)
-
+                    console.log(shops )
+                    console.log(shops.length)
                 }).catch(e => console.log(e))
         }
     }, [searchtext])
@@ -36,7 +42,7 @@ const Search = ({ navigation, route }) => {
     )
 
     const productrenderItem = ({ item }) => (
-        <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.id} imageUri={item.image} category={item.category} price={item.price} description={item.description} />
+        <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} />
     )
 
     return (
@@ -49,12 +55,12 @@ const Search = ({ navigation, route }) => {
                 <TextInput placeholder="Search for products and shop" style={styles.TextInp} onChangeText={text => setsearchtext(text)} value={searchtext} />
             </View>
 
-            {shops.length != 1 ? <FlatList
+            {shops.length != 0 ? <FlatList
                 data={shops}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />:null}
-           {products.length !=1?
+           {products.length !=0?
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     showsScroll={false}
