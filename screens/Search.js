@@ -42,7 +42,7 @@ const Search = ({ navigation, route }) => {
     )
 
     const productrenderItem = ({ item }) => (
-        <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} distance={item.distance} />
+        <HomeProductCard navigation={navigation} id={item.productid} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} distance={item.distance} />
     )
 
     return (

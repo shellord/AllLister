@@ -19,6 +19,7 @@ const Product = ({ navigation, route }) => {
     const [instock, setinstock] = useState(1)
 
     useEffect(() => {
+        
         console.log(API_URL + 'product/' + itemId)
         fetch(API_URL + 'product/' + itemId)
             .then(response => response.json())
