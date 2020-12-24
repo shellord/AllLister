@@ -16,7 +16,6 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                 .then(json => {
                     setshopname(json.response[0].shopname)
                     setshopnumber(json.response[0].mobilenumber)
-                    console.log(11)
                 }).catch(e => console.log(e))
         }
     }, [])
