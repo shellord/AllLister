@@ -1,12 +1,12 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthContext } from "./context"
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 // import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { AsyncStorage} from "react-native"
+import { AsyncStorage } from "react-native"
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import {Firebase} from './config'
+import { Firebase } from './config'
 import MobileLogin from './screens/MobileLogin'
 import Home from './screens/Home'
 import Search from './screens/Search'
@@ -20,6 +20,7 @@ import PrivacyPolicy from './screens/PrivacyPolicy'
 import AboutUs from './screens/AboutUs'
 import NearYou from './screens/NearYou'
 import IntroScreen from './screens/IntroScreen'
+import CategoryExpand from './screens/CategoryExpand'
 import Loading from './components/Loading'
 import * as Location from 'expo-location'
 import Geocoder from 'react-native-geocoding'
@@ -37,131 +38,144 @@ const API_URL = "http://alllisterapi.ddns.net:3000/api/"
 const UPLOAD_URL = "http://alllisterapi.ddns.net/"
 const API_KEY = "AIzaSyAScZ9mwTrPHrYjr68NeYsFqUgaGvrpWLU"
 
-const RootStackScreen = ({userToken,showIntroScreen}) => (
+const RootStackScreen = ({ userToken, showIntroScreen }) => (
   <RootStack.Navigator headerMode="none">
     {showIntroScreen ? (
-			<RootStack.Screen name="IntroScreen" component={IntroScreen} />
-		) :  userToken?(
-        <RootStack.Screen
+      <RootStack.Screen name="IntroScreen" component={IntroScreen} />
+    ) : userToken ? (
+      <RootStack.Screen
         name="Home"
         component={TabScreen}
-        
-      /> 
-      ):(
-        <RootStack.Screen
-        name="Auth"
-        component={AuthStackScreen}
-      /> 
-      )
+
+      />
+    ) : (
+          <RootStack.Screen
+            name="Auth"
+            component={AuthStackScreen}
+          />
+        )
     }
   </RootStack.Navigator>
 )
 
-const AuthStackScreen = ()=> (
+const AuthStackScreen = () => (
   <AuthStack.Navigator>
-     <AuthStack.Screen 
+    <AuthStack.Screen
       name="GetStarted"
       component={GetStarted}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
       }
     />
-    <AuthStack.Screen 
+    <AuthStack.Screen
       name="Login"
       component={MobileLogin}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
       }
     />
-     
-    
+
+
   </AuthStack.Navigator>
 )
 
-const HomeStackScreen = ({navigation}) => (
+const HomeStackScreen = () => (
   <HomeStack.Navigator mode='card'>
     <HomeStack.Screen
       name="Home"
       component={Home}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
-    }
+      }
     />
-     <HomeStack.Screen
+    <HomeStack.Screen
       name="storescreen"
       component={StoreScreen}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
-    }
+      }
     />
     <HomeStack.Screen
       name="categories"
       component={Categories}
+
       options={
         {
-          headerShown:false
+          showLabel: false,
+          headerShown: false
         }
-    }
+      }
+    />
+    <HomeStack.Screen
+      name="categoryexpand"
+      component={CategoryExpand}
+      options={
+        {
+          showLabel: false,
+          title: 'CATEGORIES',
+          headerShown: true
+        }
+      }
     />
 
-    
+
     <HomeStack.Screen
       name="productscreen"
       component={Product}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
-    }
+      }
     />
-     <HomeStack.Screen
+    <HomeStack.Screen
       name="Search"
       component={Search}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
-    }
+      }
     />
 
-    
-<HomeStack.Screen
+
+    <HomeStack.Screen
       name="NearYou"
       component={NearYou}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
-    }
+      }
     />
 
 
-<HomeStack.Screen
+    <HomeStack.Screen
       name="PrivacyPolicy"
       component={PrivacyPolicy}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
-    }
+      }
     />
 
-<HomeStack.Screen
+    <HomeStack.Screen
       name="AboutUs"
       component={AboutUs}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
-    }
+      }
     />
     <HomeStack.Screen
       name="ChangeLocation"
@@ -178,28 +192,28 @@ const HomeStackScreen = ({navigation}) => (
 
 
 const SearchStackScreen = () => (
-    <SearchStack.Navigator>
-      <SearchStack.Screen 
-        name="Search"
-        component={Search}
-        options={
-          {
-            headerShown:false
-          }
+  <SearchStack.Navigator>
+    <SearchStack.Screen
+      name="Search"
+      component={Search}
+      options={
+        {
+          headerShown: false
         }
-      />
-    </SearchStack.Navigator>
+      }
+    />
+  </SearchStack.Navigator>
 )
 
 
 const ProfileStackScreen = () => (
   <ProfileStack.Navigator>
-    <ProfileStack.Screen 
+    <ProfileStack.Screen
       name="Profile"
       component={Profile}
       options={
         {
-          headerShown:false
+          headerShown: false
         }
       }
     />
@@ -211,15 +225,15 @@ const TabScreen = () => (
   <Tabs.Navigator
     tabBarOptions={
       {
-        showLabel:true,
+        showLabel: true,
         activeTintColor: 'black',
         inactiveTintColor: 'gray',
       }
     }
   >
-    <Tabs.Screen 
+    <Tabs.Screen
       name="Home"
-      component={HomeStackScreen }
+      component={HomeStackScreen}
       options={
         {
           tabBarIcon: ({ color, size }) => (
@@ -228,9 +242,20 @@ const TabScreen = () => (
         }
       }
     />
-    <Tabs.Screen 
+    <Tabs.Screen
+      name="Categories"
+      component={Categories}
+      options={
+        {
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="ios-list" color={color} size={size} />
+          )
+        }
+      }
+    />
+    <Tabs.Screen
       name="Search"
-      component={SearchStackScreen }
+      component={SearchStackScreen}
       options={
         {
           tabBarIcon: ({ color, size }) => (
@@ -239,9 +264,9 @@ const TabScreen = () => (
         }
       }
     />
-    <Tabs.Screen 
+    <Tabs.Screen
       name="Settings"
-      component={ProfileStackScreen }
+      component={ProfileStackScreen}
       options={
         {
           tabBarIcon: ({ color, size }) => (
@@ -288,11 +313,11 @@ export default function App() {
         })
         .catch(error => console.warn(error))
     }
-  }, [userLat,userLong])
+  }, [userLat, userLong])
 
-	AsyncStorage.getItem("showIntro").then((val) => {
-		if (val !== null) setShowIntroScreen(0)
-	})
+  AsyncStorage.getItem("showIntro").then((val) => {
+    if (val !== null) setShowIntroScreen(0)
+  })
 
 
   const authContext = React.useMemo(() => {
@@ -301,35 +326,35 @@ export default function App() {
         Firebase.auth().signOut()
       },
       IntroDone: () => {
-				setShowIntroScreen(0)
-				AsyncStorage.setItem("showIntro", "false")
+        setShowIntroScreen(0)
+        AsyncStorage.setItem("showIntro", "false")
       },
-      userLat:userLat,
-      userLong:userLong,
-      locationName:locationName,
-      chgLocation:(lat,long) =>{
+      userLat: userLat,
+      userLong: userLong,
+      locationName: locationName,
+      chgLocation: (lat, long) => {
         setuserLat(lat)
         setuserLong(long)
       },
-      API_URL:API_URL,
-      UPLOAD_URL:UPLOAD_URL,
-      API_KEY:API_KEY
+      API_URL: API_URL,
+      UPLOAD_URL: UPLOAD_URL,
+      API_KEY: API_KEY
     }
-  }, [userLat,userLong,locationName])
+  }, [userLat, userLong, locationName])
 
   const checkReg = (user) => {
     fetch(API_URL + `users/${user.phoneNumber}`)
       .then((response) => response.json())
       .then((json) => {
         try {
-          if (json.response.length==0) {
+          if (json.response.length == 0) {
             fetch(API_URL + `adduser/${user.phoneNumber}`)
-              .catch(e => alert("Network Error!")) 
-          } 
-         
+              .catch(e => alert("Network Error!"))
+          }
+
         }
         catch (e) {
-        
+
         }
         // if(Object.keys(json.response).length!=0){
         //   setisFinishedSignup(1)
@@ -342,7 +367,7 @@ export default function App() {
 
   }
   Firebase.auth().onAuthStateChanged((user) => {
-    if(user){
+    if (user) {
       checkReg(user)
       setuserToken(user)
       // setisInitializing(0)
@@ -350,21 +375,21 @@ export default function App() {
       setuserToken(null)
     }
   })
-    if(isInitializing || !locationName){
-      return(
+  if (isInitializing || !locationName) {
+    return (
       <Loading />
-      )
-    }
+    )
+  }
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <RootStackScreen userToken={userToken} 
+        <RootStackScreen userToken={userToken}
           showIntroScreen={showIntroScreen}
         />
       </NavigationContainer>
     </AuthContext.Provider>
   )
 
-  
+
 }
 
