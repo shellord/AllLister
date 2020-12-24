@@ -41,7 +41,7 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                 <View style={styles.detailsContainer}>
                     <Text style={styles.productTitle}>{title}</Text>
                     <Text style={styles.productCat}>{category}</Text>
-                    <Text style={styles.priceTag}> ₹{price}.00 INR  </Text>
+                    {price?<Text style={styles.priceTag}> ₹{price}.00 INR  </Text>:null}
                 </View>
             </View>
         </TouchableOpacity>

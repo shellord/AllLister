@@ -4,7 +4,7 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import Constants from 'expo-constants'
 import { TabBar } from 'react-native-tab-view';
 import HomeProductCardList from '../components/HomeProductCardList'
-import MaterialStoreCardList from '../components/MaterialStoreCardList'
+import CategoryStoreList from '../components/CategoryStoreList'
 import CategoryProductList from '../components/CategoryProductList'
 
 
@@ -22,7 +22,7 @@ export default function CategoryExpand({ navigation,route }) {
 
     const SecondRoute = () => (
         <View style={[styles.scene, { backgroundColor: 'white' }]} >
-            <MaterialStoreCardList navigation={navigation} />
+            <CategoryStoreList navigation={navigation} category={route.params.category}/>
         </View>
     );
 

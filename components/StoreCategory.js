@@ -44,9 +44,12 @@ const StoreCategory = ({ navigation }) => {
                             showsHorizontalScrollIndicator={false}
                         >
                             {storecategories.map(elem => (
+                                <TouchableOpacity onPress={() => { navigation.navigate('categoryexpand', { category: elem.name }) }}>
+
                                 <Category imageUri={{ uri: elem.image }}
                                     name={elem.name}
                                 />
+                                </TouchableOpacity>
                             ))}
 
                         </ScrollView>

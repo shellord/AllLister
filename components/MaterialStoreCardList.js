@@ -10,7 +10,7 @@ const MaterialStoreCardList = ({navigation}) => {
     const [shops, setshops] = useState([{}])
     
     useEffect(() => {
-        fetch(API_URL + 'shop/' + userLat + '/' + userLong+'/10')
+        fetch(API_URL + 'shop/' + userLat + '/' + userLong+'/50')
             .then(response => response.json())
             .then(json => {
                 setshops(json.response)

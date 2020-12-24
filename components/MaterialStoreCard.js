@@ -30,10 +30,14 @@ const MaterialStoreCard = ({ id, name, tel, distance, otime, ctime, navigation, 
                     <View style={styles.textContainer}>
                         <Text style={styles.mainTitle}>{name}</Text>
                         <Text style={styles.telTitle}>{tel}</Text>
-                        <Text style={styles.timeTitle}>{otime} - {ctime}</Text>
+                        {distance?<Text style={styles.timeTitle}>{otime} - {ctime}</Text>:null}
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Icon name="location-arrow" size={14} color="black" />
-                            <Text style={styles.distanceTitle}>{Math.round(distance)} km</Text>
+
+                            {distance ? <Icon name="location-arrow" size={14} color="black" />:null}
+                                            
+
+                            {distance ?
+                             <Text style={styles.distanceTitle}>{Math.round(distance)} km</Text>:null} 
                         </View>
                     </View>
                 </View>
