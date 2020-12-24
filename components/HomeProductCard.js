@@ -6,16 +6,18 @@ const HomeProductCard = ({id,title,price,category,description,navigation,imageUr
 
     const { API_URL,UPLOAD_URL } = useContext(AuthContext)
     const [shopname, setshopname] = useState('')
-
-    useEffect(() => {
-       fetch(API_URL+'shop/id/'+shopId)
-       .then(response => response.json())
-       .then(json => {
-            setshopname(json.response[0].shopname)
-       }).catch(e => alert("Network Error!"))
-    }, [])
     let img = ''
     imageUri ? img = UPLOAD_URL + JSON.parse(imageUri)[0].name.replace('/var/www/html/', '') : null
+    useEffect(() => {
+        if(shopId){
+        fetch(API_URL+'shop/id/'+shopId)
+        .then(response => response.json())
+        .then(json => {
+                setshopname(json.response[0].shopname)
+        }).catch(e => console.log(e))
+    }
+    }, [])
+  
     return (
         <TouchableOpacity onPress={() =>{ navigation.navigate('productscreen',{
             itemId: id,

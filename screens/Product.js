@@ -41,6 +41,8 @@ const Product = ({navigation,route}) => {
         {/* <Image source={{uri:'https://i.imgur.com/HzqIYjc.png'}} style={styles.imageStyle} /> */}
         <Carousel data={producImages}/>
         <Text style={styles.itemTitle}> {itemTitle}</Text>
+        <Text style={styles.noStock}>OUT OF STOCK</Text>
+
         <Text style={styles.categoryTitle}> {itemCategory} </Text>
         <Text style={styles.shopName}>Seller : {itemShopName}</Text>
         <Text style={styles.detailsText}> DETAILS </Text>
@@ -78,6 +80,16 @@ const styles = StyleSheet.create({
     imageStyle:{
         width:'100%',
         height:210
+    },
+    noStock: {
+        fontSize: 14,
+        fontWeight: '600',
+        marginTop: 10,
+        marginBottom: 5,
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+        alignSelf: 'center',
+        color: 'red'
     },
     itemTitle:{
         fontSize:22,

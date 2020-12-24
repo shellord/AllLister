@@ -9,15 +9,13 @@ import { AuthContext } from '../context'
 const Search = ({ navigation, route }) => {
 
     const { API_URL } = useContext(AuthContext)
-    console.log('mounted')
     let searchTerm = ''
-    route.params ? searchTerm = route.params.searchTerm : null
+    route.params ? searchTerm = route.params.searchTerm : ''
     const [searchtext, setsearchtext] = useState(searchTerm)
     const [shops, setshops] = useState([{}])
     const [products, setproducts] = useState([{}])
 
     useEffect(() => {
-        console.log(searchtext)
 
         if (searchtext) {
             fetch(API_URL + "psearch/" + searchtext)
@@ -25,12 +23,11 @@ const Search = ({ navigation, route }) => {
                 .then(json => {
                     setproducts(json.response)
                 }).catch(e => console.log(e))
-
             fetch(API_URL + "ssearch/" + searchtext)
                 .then(response => response.json())
                 .then(json => {
                     setshops(json.response)
-
+                    
                 }).catch(e => console.log(e))
         }
     }, [searchtext])
@@ -40,7 +37,7 @@ const Search = ({ navigation, route }) => {
     )
 
     const productrenderItem = ({ item }) => (
-        <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopName={item.shopName} imageUri={item.imageUri} category={item.category} price={item.price} description={item.description} />
+        <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.id} imageUri={item.image} category={item.category} price={item.price} description={item.description} />
     )
 
     return (
@@ -50,7 +47,7 @@ const Search = ({ navigation, route }) => {
 
             <View style={styles.searchContainer}>
                 <Icon style={styles.icon} name="search" size={14} color="black" />
-                <TextInput style={styles.TextInp} onChangeText={text => setsearchtext(text)} />
+                <TextInput style={styles.TextInp} onChangeText={text => setsearchtext(text)} value={searchtext}/>
             </View>
     
              <FlatList
