@@ -5,21 +5,22 @@ import { AuthContext } from '../context'
 
 const CategoryProductList = ({ navigation,category}) => {
 
-    const { API_URL } = useContext(AuthContext)
-    const [featuredproducts, setfeaturedproducts] = useState([{}])
+    const { API_URL,userLat,userLong } = useContext(AuthContext)
+    const [productlist, setproductlist] = useState([{}])
 
     useEffect(() => {
-        fetch(API_URL + 'product/category/' + category)
+        fetch(API_URL + 'product/category/' + category+"/"+userLat+"/"+userLong)
             .then(response => response.json())
             .then(json => {
-                setfeaturedproducts(json.response)
+                console.log(json)
+                setproductlist(json.response)
             }).catch(e => console.log(e))
 
     }, [])
 
     const renderItem = ({ item }) => (
         item.shopid ?
-            <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} />
+            <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} distance={item.distance} />
             : null
     )
 
@@ -29,7 +30,7 @@ const CategoryProductList = ({ navigation,category}) => {
                 showsVerticalScrollIndicator={false}
                 showsScroll={false}
                 numColumns={2}
-                data={featuredproducts}
+                data={productlist}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
