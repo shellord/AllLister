@@ -16,8 +16,15 @@ const Product = ({ navigation, route }) => {
     const { API_URL } = useContext(AuthContext)
     const [relatedproducts, setrelatedproducts] = useState([{}])
     const [producImages, setproducImages] = useState([{}])
+    const [instock, setinstock] = useState(1)
 
     useEffect(() => {
+
+        fetch(API_URL + 'shop/' + itemId)
+            .then(response => response.json())
+            .then(json => {
+                setinstock(json.response[0].instock)
+            }).catch(e => alert("Network Error!"))
 
         fetch(API_URL + 'productimage/' + itemId)
             .then(response => response.json())
@@ -43,7 +50,7 @@ const Product = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={styles.itemTitle}> {itemTitle}</Text>
-                    <Text style={styles.noStock}>❌ OUT OF STOCK</Text>
+                    {!instock ? <Text style={styles.noStock}>❌ OUT OF STOCK</Text>:null}
                 </View>
 
                 <Text style={styles.categoryTitle}> [ {itemCategory} ] </Text>
