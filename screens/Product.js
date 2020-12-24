@@ -19,8 +19,7 @@ const Product = ({ navigation, route }) => {
     const [instock, setinstock] = useState(1)
 
     useEffect(() => {
-
-        fetch(API_URL + 'shop/' + itemId)
+        fetch(API_URL + 'product/' + itemId)
             .then(response => response.json())
             .then(json => {
                 setinstock(json.response[0].instock)

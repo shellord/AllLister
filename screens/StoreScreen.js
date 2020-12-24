@@ -32,7 +32,6 @@ const StoreScreen = ({ navigation, route }) => {
                 setshoplat(json.response[0].latitude)
                 setshoplong(json.response[0].longitude)
                 console.log(json.response[0].latitude)
-                console.log('https://www.google.com/maps/search/?api=1&query=' + shoplat + ',' + shoplong)
             }).catch(e => alert("Network Error!"))
     }, [])
 
@@ -61,7 +60,7 @@ const StoreScreen = ({ navigation, route }) => {
                     </View>
                 </View>
                 <View style={styles.searchView}>
-                    <StoreSearchCard navigation={navigation} />
+                    <StoreSearchCard navigation={navigation} shopId={itemId} shopname={shopname} />
                 </View>
                 <Text style={styles.detText}> STORE PRODUCTS</Text>
                 <ProductFlatList navigation={navigation} data={products} shopname={shopname} itemTel={itemTel} />

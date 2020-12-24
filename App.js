@@ -25,6 +25,7 @@ import Loading from './components/Loading'
 import * as Location from 'expo-location'
 import Geocoder from 'react-native-geocoding'
 import ChangeLocation from './screens/ChangeLocation'
+import ShopSearch from './screens/ShopSearch'
 
 const RootStack = createStackNavigator()
 const AuthStack = createStackNavigator()
@@ -109,8 +110,9 @@ const HomeStackScreen = () => (
 
       options={
         {
-          showLabel: false,
-          headerShown: false
+          headerShown: false,
+          headerTitle: 'BACK',
+
         }
       }
     />
@@ -139,6 +141,15 @@ const HomeStackScreen = () => (
     <HomeStack.Screen
       name="Search"
       component={Search}
+      options={
+        {
+          headerShown: false
+        }
+      }
+    />
+    <HomeStack.Screen
+      name="ShopSearch"
+      component={ShopSearch}
       options={
         {
           headerShown: false
