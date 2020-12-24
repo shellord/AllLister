@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View,Image } from 'react-native'
+import { AuthContext } from '../context'
 
 
 
 const CategoriesList = ({navigation,imageUri,name}) => {
+    const { UPLOAD_URL } = useContext(AuthContext)
+    let img = ''
+    imageUri ? img = UPLOAD_URL+JSON.parse(imageUri)[0].name.replace('/var/www/html',''):null
+
     return (
         <View style={{ height: 170, width: "100%",marginBottom:20}}>
                 <View style={{ flex: 2 }}>
-                    <Image source={{uri:imageUri}}
+                    <Image source={{uri:img}}
                         style={{ flex: 1, width: null, height: null, resizeMode: 'cover' }}
                     />
                 </View>

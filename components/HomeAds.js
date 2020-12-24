@@ -39,6 +39,7 @@ const HomeAds = () => {
             {banners ?
                 <FlatListSlider
                     data={data}
+                    onPress={()=>null}
                 />:null 
             }
     

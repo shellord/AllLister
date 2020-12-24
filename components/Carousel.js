@@ -6,26 +6,6 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler'
 const { width, height } = Dimensions.get('window')
 
 const Carousel = ({route,data}) => {
-    console.log(data)
-    const DATA = [
-
-        {
-            id:1,
-            imguri:'https://i.imgur.com/nbr6VVQ.jpg'    
-        },
-        {
-            id:2,
-            imguri:'https://i.imgur.com/8qBw85a.jpg'
-        },
-        {
-            id:3,
-            imguri:'https://i.imgur.com/w8I8Vqa.jpg'
-        },
-        {
-            id:4,
-            imguri:'https://i.imgur.com/mgl8WUc.jpg'
-        }
-    ]
 
     const renderItem = ({item}) =>
     {

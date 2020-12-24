@@ -24,23 +24,17 @@ const Categories = ({navigation}) => {
             <Text style={styles.header}>CATEGORIES</Text>
             
             <TouchableOpacity>
-             <CategoriesList navigation={navigation} imageUri="https://i.imgur.com/6CvYN5z.jpg"
-                name="FOOD"
-                />
-            </TouchableOpacity>
 
-            <TouchableOpacity>
-            <CategoriesList navigation={navigation} imageUri="https://i.imgur.com/iRJKDHq.jpg"
-                name="TECHNOLOGY"
-                />
+                    {storecategories.map(elem => {            
+                        return(
+                        <CategoriesList navigation={navigation} imageUri={elem.image}
+                            name={elem.name}
+                        />
+                        )
+                    })}
             </TouchableOpacity>
 
             
-                {storecategories.map(elem => (
-                    <CategoriesList navigation={navigation} imageUri={elem.image}
-                        name={elem.name}
-                    />
-                ))}
                
         </ScrollView>
         </>
