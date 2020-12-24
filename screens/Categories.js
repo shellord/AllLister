@@ -23,19 +23,19 @@ const Categories = ({navigation}) => {
         <ScrollView style={styles.container}>
             <Text style={styles.header}>CATEGORIES</Text>
             
-                <TouchableOpacity onPress={() => { navigation.navigate('categoryexpand') }}>
 
                     {storecategories.map(elem => {            
                         return(
+                            <TouchableOpacity onPress={() => { navigation.navigate('categoryexpand') }}>
+
                         <CategoriesList navigation={navigation} imageUri={elem.image}
                             name={elem.name}
+                            
                         />
+                            </TouchableOpacity>
+
                         )
                     })}
-            </TouchableOpacity>
-
-            
-               
         </ScrollView>
         </>
     )

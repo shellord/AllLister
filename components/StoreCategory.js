@@ -14,7 +14,7 @@ const StoreCategory = ({ navigation }) => {
         fetch(API_URL + 'shopcategory')
             .then(response => response.json())
             .then(json => {
-                setstorecategories(json.response)
+                setstorecategories(json.response.slice(0,5))
                 console.log(storecategories)
             })
 
