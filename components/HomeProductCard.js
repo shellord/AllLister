@@ -2,13 +2,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { AuthContext } from '../context'
 
-const HomeProductCard = ({ id, title, price, category, description, navigation, imageUri, shopId }) => {
+const HomeProductCard = ({ id, title, price, category, description, navigation, imageUri, shopId,distance }) => {
 
     const { API_URL, UPLOAD_URL } = useContext(AuthContext)
     const [shopname, setshopname] = useState('')
     const [shopnumber, setshopnumber] = useState('')
     let img = ''
     imageUri ? img = UPLOAD_URL + JSON.parse(imageUri)[0].name.replace('/var/www/html/', '') : null
+    let dist=''
+    if (distance < 1) {
+        dist = Math.round(distance * 1000)
+        dist = dist.toString() + ' M'
+    } else {
+        dist = Math.round(distance) + ' KM'
+    }
     useEffect(() => {
         if (shopId) {
             fetch(API_URL + 'shop/id/' + shopId)
@@ -30,7 +37,8 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                 itemDescription: description,
                 itemImage: imageUri,
                 itemShopName: shopname,
-                itemTel:shopnumber
+                itemTel:shopnumber,
+                distance:distance
             });
         }}>
             <View style={styles.container}>
@@ -45,6 +53,8 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                     <Text style={styles.productTitle}>{title}</Text>
                     <Text style={styles.productCat}>{category}</Text>
                     {price?<Text style={styles.priceTag}> ₹{price}.00 INR  </Text>:null}
+                    {distance?<Text style={styles.productCat}>{dist}</Text>:null}
+
                 </View>
             </View>
         </TouchableOpacity>

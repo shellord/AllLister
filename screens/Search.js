@@ -19,7 +19,7 @@ const Search = ({ navigation, route }) => {
 
         if (searchtext) {
 
-            fetch(API_URL + "psearch/" + searchtext)
+            fetch(API_URL + "psearch/" +userLat+ "/"+userLong+"/"+ searchtext)
                 .then(response => response.json())
                 .then(json => {
                     setproducts(json.response)
@@ -42,7 +42,7 @@ const Search = ({ navigation, route }) => {
     )
 
     const productrenderItem = ({ item }) => (
-        <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} />
+        <HomeProductCard navigation={navigation} id={item.id} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} distance={item.distance} />
     )
 
     return (
