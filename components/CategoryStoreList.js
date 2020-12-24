@@ -23,7 +23,7 @@ const CategoryStoreList = ({ navigation,category }) => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
-                <Text style={styles.titleStyle}>NEAR YOU</Text>
+                {/* <Text style={styles.titleStyle}>NEAR YOU</Text> */}
                 {/* <TouchableOpacity onPress={() => { navigation.push('NearYou'), { navigation: navigation } }}>
                     <Text style={{ fontSize: 15, fontWeight: '600', paddingHorizontal: 20 }}>
                         SHOW ALL

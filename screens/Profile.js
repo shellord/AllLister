@@ -1,11 +1,43 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { StyleSheet, Text, View ,Button} from 'react-native'
 import { ScrollView, TextInput, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import Constants from 'expo-constants';
 import {AuthContext} from '../context'
+import { Firebase } from '../config'
 
 const Profile = ({navigation}) => {
-    const {signOut} = React.useContext(AuthContext)
+    const {signOut,API_URL} = React.useContext(AuthContext)
+    const [name, setname] = useState('')
+    const [email, setemail] = useState('')
+
+    useEffect(() => {
+        fetch(API_URL + 'users/' + Firebase.auth().currentUser.phoneNumber)
+        .then(response => response.json())
+        .then(json => {
+            setname(json.response[0].name)
+            setemail(json.response[0].email)
+        }).catch(e => alert("Network Error"))
+
+    }, [])
+
+
+    const changeData = (datatochange) => {
+        if(datatochange=='name'){
+            fetch("http://alllisterapi.ddns.net:3000/api/changename/" + Firebase.auth().currentUser.phoneNumber+"/"+name)
+            .then(response  => response.json())
+            .then(json => {
+                alert("Name has changed!")
+            }).catch(e => alert("Network Error"))
+        }
+        else if(datatochange=='email'){
+            fetch("http://alllisterapi.ddns.net:3000/api/changeemail/" + Firebase.auth().currentUser.phoneNumber + "/" + email)
+                .then(response => response.json())
+                .then(json => {
+                    alert("Email has changed!")
+                }).catch(e => alert("Network Error"))
+        }
+    }
+
     return (
         <>
         <ScrollView style={styles.container}>
@@ -24,16 +56,16 @@ const Profile = ({navigation}) => {
 
         <Text style={{fontSize:15,fontWeight:'500',marginTop:30,marginBottom:10,letterSpacing:2}}>NAME </Text>
         <View style={{borderBottomColor:'black',borderWidth:1,padding:7,flexDirection:'row',justifyContent: 'space-between',}}>
-        <TextInput value="USERNAME"/> 
-        <TouchableWithoutFeedback style={{backgroundColor:'black',padding:7}}>
+        <TextInput value={name} onChangeText={(value) => setname(value)}/> 
+        <TouchableWithoutFeedback style={{backgroundColor:'black',padding:7}} onPress={()=> changeData('name')}>
             <Text style={{color:'white'}}>CHANGE</Text>
         </TouchableWithoutFeedback>
         </View>
 
         <Text style={{fontSize:15,fontWeight:'500',marginTop:30,marginBottom:10,letterSpacing:2}}>EMAIL </Text>
         <View style={{borderBottomColor:'black',borderWidth:1,padding:7,flexDirection:'row',justifyContent: 'space-between',}}>
-        <TextInput value="SOMEONE@EXAMPLE.COM"/> 
-        <TouchableWithoutFeedback style={{backgroundColor:'black',padding:7}}>
+        <TextInput value={email} onChangeText={(value)=>setemail(value)}/> 
+                    <TouchableWithoutFeedback style={{ backgroundColor: 'black', padding: 7 }} onPress={() => changeData('email')}>
             <Text style={{color:'white'}}>CHANGE</Text>
         </TouchableWithoutFeedback>
         </View>

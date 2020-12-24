@@ -6,6 +6,7 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
 
     const { API_URL, UPLOAD_URL } = useContext(AuthContext)
     const [shopname, setshopname] = useState('')
+    const [shopnumber, setshopnumber] = useState('')
     let img = ''
     imageUri ? img = UPLOAD_URL + JSON.parse(imageUri)[0].name.replace('/var/www/html/', '') : null
     useEffect(() => {
@@ -14,6 +15,8 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                 .then(response => response.json())
                 .then(json => {
                     setshopname(json.response[0].shopname)
+                    setshopnumber(json.response[0].mobilenumber)
+                    console.log(11)
                 }).catch(e => console.log(e))
         }
     }, [])
@@ -28,6 +31,7 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                 itemDescription: description,
                 itemImage: imageUri,
                 itemShopName: shopname,
+                itemTel:shopnumber
             });
         }}>
             <View style={styles.container}>
