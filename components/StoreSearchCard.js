@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ShopSearch from '../screens/ShopSearch'
 
-const StoreSearchCard = ({ navigation, shopId }) => {
+const StoreSearchCard = ({ navigation, shopId, shopname }) => {
     const [text, setText] = React.useState('');
 
     return (
@@ -13,7 +13,7 @@ const StoreSearchCard = ({ navigation, shopId }) => {
                 placeholder='Search for products'
                 value={text}
                 onChangeText={text => setText(text)}
-                onSubmitEditing={() => navigation.navigate('ShopSearch', { searchTerm: text, shopId: shopId })} />
+                onSubmitEditing={() => navigation.navigate('ShopSearch', { searchTerm: text, shopId: shopId, shopname: shopname })} />
             <Icon style={styles.icon} name="search" size={14} color="darkgrey" />
         </View>
     )

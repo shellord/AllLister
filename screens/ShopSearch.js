@@ -38,11 +38,11 @@ const ShopSearch = ({ navigation, route }) => {
     return (
 
         <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center', alignSelf: 'center', flex: 1 }}>
-            <Text style={{ fontSize: 23, fontWeight: '500', marginBottom: 30, textAlign: 'center', marginTop: 50 }}>SEARCH</Text>
+            <Text style={{ fontSize: 23, fontWeight: '500', marginBottom: 30, textAlign: 'center', marginTop: 50, textTransform: 'uppercase', letterSpacing: 1 }}>SEARCH IN {route.params.shopname}</Text>
 
             <View style={styles.searchContainer}>
                 <Icon style={styles.icon} name="search" size={14} color="black" />
-                <TextInput placeholder="Search for products and shop" style={styles.TextInp} onChangeText={text => setsearchtext(text)} value={searchtext} />
+                <TextInput placeholder="Search for products" style={styles.TextInp} onChangeText={text => setsearchtext(text)} value={searchtext} />
             </View>
 
             {/* {shops.length != 0 ? <FlatList
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     },
     TextInp: {
         width: '100%',
-
     },
     icon: {
         marginLeft: 10,
