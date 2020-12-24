@@ -23,7 +23,6 @@ const Product = ({navigation,route}) => {
             .then(response => response.json())
             .then(json => {
                 setproducImages(json.response)
-                console.log(producImages)
             }).catch(e => alert("Network Error!"))
 
         fetch(API_URL + 'product/category/' + itemCategory)

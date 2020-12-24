@@ -1,25 +1,28 @@
-import React, { useState } from 'react'
+import React, { useContext  } from 'react'
 import { StyleSheet, Image,Dimensions, View, Text} from 'react-native'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
-
+import {AuthContext} from '../context'
 
 const { width, height } = Dimensions.get('window')
 
 const Carousel = ({route,data}) => {
 
+    const {UPLOAD_URL} = useContext(AuthContext)
+    
     const renderItem = ({item}) =>
     {
-        let img=''
-        // console.log(JSON.parse(item.image))
-        // item.image ? img = JSON.parse(item.image)[0].name:null
+        let img = ''
+        if (item)
+            item.image ? img = UPLOAD_URL + JSON.parse(item.image)[0].name.replace('/var/www/html/', '')
+                : null
     return(
         <View style={{flex:1,flexDirection:'column'}}>
             <Text style={{alignSelf:'center', color:'grey'}}>- SWIPE TO SEE PRODUCT IMAGES -</Text>
 
-      {/* <Image 
+      <Image 
         style={styles.imageStyle}
-        source={{uri:item.image}}
-      />   */}
+        source={{uri:img}}
+      />   
       </View>
     )
     }
