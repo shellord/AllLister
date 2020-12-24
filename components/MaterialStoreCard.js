@@ -7,7 +7,13 @@ import { AuthContext } from '../context'
 
 const MaterialStoreCard = ({ id, name, tel, distance, otime, ctime, navigation, logoUri, storeImg, category }) => {
     const { UPLOAD_URL } = useContext(AuthContext)
-
+    let dist = ''
+    if (distance < 1) {
+        dist = Math.round(distance * 1000)
+        dist = dist.toString() + ' M'
+    } else {
+        dist = Math.round(distance) + ' KM'
+    }
     let img = ''
     logoUri ? img = UPLOAD_URL + JSON.parse(logoUri)[0].name.replace('/var/www/html/', '') : null
     return (
@@ -30,14 +36,14 @@ const MaterialStoreCard = ({ id, name, tel, distance, otime, ctime, navigation, 
                     <View style={styles.textContainer}>
                         <Text style={styles.mainTitle}>{name}</Text>
                         <Text style={styles.telTitle}>{tel}</Text>
-                        {distance?<Text style={styles.timeTitle}>{otime} - {ctime}</Text>:null}
+                        {distance ? <Text style={styles.timeTitle}>{otime} - {ctime}</Text> : null}
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                            {distance ? <Icon name="location-arrow" size={14} color="black" />:null}
-                                            
+                            {distance ? <Icon name="location-arrow" size={14} color="black" /> : null}
+
 
                             {distance ?
-                             <Text style={styles.distanceTitle}>{Math.round(distance)} km</Text>:null} 
+                                <Text style={styles.distanceTitle}>{dist}</Text> : null}
                         </View>
                     </View>
                 </View>
