@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import MaterialStoreCard from '../components/MaterialStoreCard'
 import HomeProductCard from '../components/HomeProductCard'
 import { AuthContext } from '../context'
+import { Firebase } from '../config'
 
 const Search = ({ navigation, route }) => {
 
@@ -15,34 +16,50 @@ const Search = ({ navigation, route }) => {
     const [searchtext, setsearchtext] = useState(searchTerm)
     const [shops, setshops] = useState([{}])
     const [products, setproducts] = useState([{}])
+    const [loyalshopid, setLoyalshopid] = useState(null)
+
     useEffect(() => {
 
         if (searchtext) {
-
-            fetch(API_URL + "psearch/" +userLat+ "/"+userLong+"/"+ searchtext)
+            // console.log(API_URL + "psearch/" + userLat + "/" + userLong + "/" + searchtext)
+            // fetch(API_URL + "loyalshop/" + Firebase.auth().currentUser.phoneNumber)
+            //     .then(response => response.json())
+            //     .then(json => {
+            //         setLoyalshopid(json.response[0].shopId)
+            //         fetch(API_URL + "lpsearch/"+userLat+"/"+userLong+"/"+loyalshopid+"/"+searchtext)
+            //         .then(response => response.json())
+            //         .then(json => {
+            //             setproducts(json.response)
+            //         })
+            //         fetch(API_URL + "lssearch/" + userLat + "/" + userLong + "/" + loyalshopid + "/" + searchtext)
+            //         .then(response => response.json())
+            //         .then(json => {
+            //             setshops(json.response)
+            //         })
+            //     }).catch(e => console.log(e))
+            //     console.log(121121312312)
+            fetch(API_URL + "psearch/" + userLat + "/" + userLong + "/" + searchtext)
                 .then(response => response.json())
                 .then(json => {
                     setproducts(json.response)
+                    console.log(products)
                 }).catch(e => console.log(e))
 
-            console.log(API_URL + "ssearch/" + userLat + "/" + userLong + "/" + searchtext)
-
-            fetch(API_URL + "ssearch/" +userLat+"/"+userLong+"/"+searchtext)
+            fetch(API_URL + "ssearch/" + userLat + "/" + userLong + "/" + searchtext)
                 .then(response => response.json())
                 .then(json => {
                     setshops(json.response)
-                    console.log(shops )
-                    console.log(shops.length)
                 }).catch(e => console.log(e))
+          
         }
     }, [searchtext])
 
     const renderItem = ({ item }) => (
-        <MaterialStoreCard navigation={navigation} id={item.id} name={item.shopname} storeImg={item.shopimage} logoUri={item.logo} tel={item.mobilenumber} distance={item.distance} otime={item.openingtime} ctime={item.closingtime} category={item.category} />
+        <MaterialStoreCard navigation={navigation} recommended={item.id == loyalshopid ? 1 : 0} id={item.id} name={item.shopname} storeImg={item.shopimage} logoUri={item.logo} tel={item.mobilenumber} distance={item.distance} otime={item.openingtime} ctime={item.closingtime} category={item.category} />
     )
 
     const productrenderItem = ({ item }) => (
-        <HomeProductCard navigation={navigation} id={item.productid} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} distance={item.distance} />
+        <HomeProductCard navigation={navigation} recommended={item.id == loyalshopid ? 1 : 0} id={item.productid} title={item.name} shopId={item.shopid} imageUri={item.image} category={item.category} price={item.price} description={item.description} distance={item.distance} />
     )
 
     return (

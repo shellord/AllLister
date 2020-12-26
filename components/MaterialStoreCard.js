@@ -5,7 +5,7 @@ import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthContext } from '../context'
 
-const MaterialStoreCard = ({ id, name, tel, distance, otime, ctime, navigation, logoUri, storeImg, category }) => {
+const MaterialStoreCard = ({ id, name, tel, distance, otime, ctime, navigation, logoUri, storeImg, category, recommended }) => {
     const { UPLOAD_URL } = useContext(AuthContext)
     let dist = ''
     if (distance < 1) {
@@ -41,9 +41,10 @@ const MaterialStoreCard = ({ id, name, tel, distance, otime, ctime, navigation, 
 
                             {distance ? <Icon name="location-arrow" size={14} color="black" /> : null}
 
-
                             {distance ?
                                 <Text style={styles.distanceTitle}>{dist}</Text> : null}
+                            {recommended ? <Text style={styles.distanceTitle}>recommended</Text> : null}
+
                         </View>
                     </View>
                 </View>

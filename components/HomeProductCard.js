@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { AuthContext } from '../context'
 
-const HomeProductCard = ({ id, title, price, category, description, navigation, imageUri, shopId,distance }) => {
+const HomeProductCard = ({ id, title, price, category, description, navigation, imageUri, shopId, distance, recommended }) => {
 
     const { API_URL, UPLOAD_URL } = useContext(AuthContext)
     const [shopname, setshopname] = useState('')
@@ -55,7 +55,7 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                     <Text style={styles.productCat}>{category}</Text>
                     {price?<Text style={styles.priceTag}> ₹{price}.00 INR  </Text>:null}
                     {distance?<Text style={styles.productCat}>{dist}</Text>:null}
-
+                    {/* {recommended==1?<Text style={styles.productCat}>RECOMMENDED</Text>:null} */}
                 </View>
             </View>
         </TouchableOpacity>
