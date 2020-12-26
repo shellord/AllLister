@@ -21,6 +21,7 @@ import AboutUs from './screens/AboutUs'
 import NearYou from './screens/NearYou'
 import IntroScreen from './screens/IntroScreen'
 import CategoryExpand from './screens/CategoryExpand'
+import SearchExpand from './screens/SearchExpand'
 import Loading from './components/Loading'
 import * as Location from 'expo-location'
 import Geocoder from 'react-native-geocoding'
@@ -140,7 +141,7 @@ const HomeStackScreen = () => (
     />
     <HomeStack.Screen
       name="Search"
-      component={Search}
+      component={SearchExpand}
       options={
         {
           headerShown: false
@@ -206,7 +207,7 @@ const SearchStackScreen = () => (
   <SearchStack.Navigator>
     <SearchStack.Screen
       name="Search"
-      component={Search}
+      component={SearchExpand}
       options={
         {
           headerShown: false

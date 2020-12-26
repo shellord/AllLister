@@ -21,6 +21,7 @@ const Search = ({ navigation, route }) => {
     useEffect(() => {
 
         if (searchtext) {
+            let prods= []
             // console.log(API_URL + "psearch/" + userLat + "/" + userLong + "/" + searchtext)
             // fetch(API_URL + "loyalshop/" + Firebase.auth().currentUser.phoneNumber)
             //     .then(response => response.json())
@@ -37,7 +38,7 @@ const Search = ({ navigation, route }) => {
             //             setshops(json.response)
             //         })
             //     }).catch(e => console.log(e))
-            //     console.log(121121312312)
+
             fetch(API_URL + "psearch/" + userLat + "/" + userLong + "/" + searchtext)
                 .then(response => response.json())
                 .then(json => {
