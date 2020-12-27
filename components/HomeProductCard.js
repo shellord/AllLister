@@ -7,10 +7,10 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
     const { API_URL, UPLOAD_URL } = useContext(AuthContext)
     const [shopname, setshopname] = useState('')
     const [shopnumber, setshopnumber] = useState('')
-    
+
     let img = ''
     imageUri ? img = UPLOAD_URL + JSON.parse(imageUri)[0].name.replace('/var/www/html/', '') : null
-    let dist=''
+    let dist = ''
     if (distance < 1) {
         dist = Math.round(distance * 1000)
         dist = dist.toString() + ' M'
@@ -38,8 +38,8 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                 itemDescription: description,
                 itemImage: imageUri,
                 itemShopName: shopname,
-                itemTel:shopnumber,
-                distance:distance
+                itemTel: shopnumber,
+                distance: distance
             });
         }}>
             <View style={styles.container}>
@@ -53,8 +53,8 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                 <View style={styles.detailsContainer}>
                     <Text style={styles.productTitle}>{title}</Text>
                     <Text style={styles.productCat}>{category}</Text>
-                    {price?<Text style={styles.priceTag}> ₹{price}.00 INR  </Text>:null}
-                    {distance?<Text style={styles.productCat}>{dist}</Text>:null}
+                    {price ? <Text style={styles.priceTag}> ₹{price}.00 INR  </Text> : null}
+                    {distance ? <Text style={styles.productCat}>{dist}</Text> : null}
                     {/* {recommended==1?<Text style={styles.productCat}>RECOMMENDED</Text>:null} */}
                 </View>
             </View>

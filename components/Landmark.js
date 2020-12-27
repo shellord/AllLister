@@ -20,7 +20,7 @@ export default Landmark
 
 const styles = StyleSheet.create({
     locationContainer: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-end',
         marginRight: 10,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     locationText: {
         marginLeft: 10,
         alignSelf: 'center',
-        fontSize: 12,
+        fontSize: 16,
         color: '#1f1f1f',
         fontWeight: '500'
     }
