@@ -6,6 +6,7 @@ import Carousel from '../components/Carousel'
 import ProductFlatList from '../components/ProductFlatList';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthContext } from '../context'
+import StoreScreen from '../screens/StoreScreen'
 // import ImageGallery from 'react-image-gallery';
 
 
@@ -13,18 +14,26 @@ const Product = ({ navigation, route }) => {
     const { itemId, itemTitle, itemPrice, itemCategory, itemDescription, itemImage, itemShopName, itemTel } = route.params;
     const { width, height } = Dimensions.get('window')
 
-    const { API_URL } = useContext(AuthContext)
+    const { API_URL, userLat, userLong } = useContext(AuthContext)
     const [relatedproducts, setrelatedproducts] = useState([{}])
     const [producImages, setproducImages] = useState([{}])
     const [instock, setinstock] = useState(1)
-
+    const [shopid, setshopid] = useState(null)
+    const [shop, setshop] = useState(null)
+    const [isloaded, setisloaded] = useState(0)
     useEffect(() => {
-        
-        console.log(API_URL + 'product/' + itemId)
         fetch(API_URL + 'product/' + itemId)
             .then(response => response.json())
             .then(json => {
                 setinstock(json.response[0].instock)
+                setshopid(json.response[0].shopid)
+                console.log(11)
+                fetch(API_URL + 'shop/' + userLat + '/' + userLong + '/1/' + json.response[0].shopid)
+                    .then(response => response.json())
+                    .then(json => {
+                        setshop(json.response)
+                        setisloaded(1)
+                    }).catch(e => console.log(e))
             }).catch(e => alert("Network Error!!!!!"))
 
         fetch(API_URL + 'productimage/' + itemId)
@@ -51,7 +60,7 @@ const Product = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={styles.itemTitle}> {itemTitle}</Text>
-                    {!instock ? <Text style={styles.noStock}>❌ OUT OF STOCK</Text>:null}
+                    {!instock ? <Text style={styles.noStock}>❌ OUT OF STOCK</Text> : null}
                 </View>
 
                 <Text style={styles.categoryTitle}> [ {itemCategory} ] </Text>
@@ -67,7 +76,18 @@ const Product = ({ navigation, route }) => {
                     <Text style={styles.itemPriceFooter}>TOTAL PRICE</Text>
                 </View>
                 {/* <TouchableOpacity  onPress={initiateWhatsAppSMS}> */}
-                <TouchableOpacity onPress={() => { Linking.openURL(`tel:${itemTel}`); }} >
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('storescreen', {
+                        itemId: shopid,
+                        itemName: itemShopName,
+                        itemTel: itemTel,
+                        itemDistance: shop[0].distance,
+                        otime: shop[0].openingtime,
+                        ctime: shop[0].closingtime,
+                        itemImg: shop[0].shopimage,
+                        category: shop[0].category
+                    })
+                }} disabled={!isloaded}>
                     <View style={styles.footerContact}>
                         <Text style={styles.contactText}>CONTACT SHOP</Text>
                     </View>
