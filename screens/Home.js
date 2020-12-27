@@ -26,17 +26,9 @@ const Home = ({ navigation }) => {
         <View style={styles.container}>
             <Header navigation={navigation} />
             <ScrollView >
-                <View style={{
-                    borderColor: 'black',
-                    borderWidth: 0.5,
-                    flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '95%', marginLeft: 10
-                }}>
-                    {/* <SearchCard navigation={navigation} /> */}
-                    {/* <LandMark locationName={locationName} navigation={navigation} /> */}
-                </View>
+                <HomeAds />
                 {/* <HeaderWelcome/> */}
                 <StoreCategory navigation={navigation} />
-                <HomeAds />
                 <MaterialStoreCardList navigation={navigation} />
                 <Text style={styles.titleStyle}> FEATURED PRODUCTS</Text>
                 <HomeProductCardList navigation={navigation} />

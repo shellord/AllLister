@@ -9,11 +9,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Firebase } from './config'
 import MobileLogin from './screens/MobileLogin'
 import Home from './screens/Home'
-import Search from './screens/Search'
 import Profile from './screens/Profile'
 import StoreScreen from './screens/StoreScreen';
 import Product from './screens/Product';
-import Catrgories from './screens/Categories'
 import Categories from './screens/Categories';
 import GetStarted from './screens/GetStarted'
 import PrivacyPolicy from './screens/PrivacyPolicy'
