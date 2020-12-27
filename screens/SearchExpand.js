@@ -6,6 +6,8 @@ import { TabBar } from 'react-native-tab-view';
 import HomeProductCardList from '../components/HomeProductCardList'
 import SearchProductList from '../components/SearchProductList'
 import SearchShopList from '../components/SearchShopList'
+import LoyalProductList from '../components/LoyalProductList'
+
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 const initialLayout = { width: Dimensions.get('window').width };
@@ -31,15 +33,22 @@ export default function SearchExpand({ navigation, route }) {
         </View>
     );
 
+    const ThirdRoute = () => (
+        <View style={[styles.scene, { backgroundColor: 'white' }]} >
+            <LoyalProductList navigation={navigation} searchtext={searchtext} />
+        </View>
+    );
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'first', title: 'ProductS' },
         { key: 'second', title: 'Shops' },
+        { key: 'third', title: 'favorite' },
     ]);
 
     const renderScene = SceneMap({
         first: FirstRoute,
         second: SecondRoute,
+        third: ThirdRoute
     });
 
     const renderTabBar = props => (

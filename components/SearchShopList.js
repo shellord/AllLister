@@ -20,7 +20,7 @@ const SearchShopList = ({searchtext,navigation}) => {
         <MaterialStoreCard navigation={navigation} id={item.id} name={item.shopname} storeImg={item.shopimage} logoUri={item.logo} tel={item.mobilenumber} distance={item.distance} otime={item.openingtime} ctime={item.closingtime} category={item.category} />
     )
     return (
-        <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center', alignSelf: 'center', flex: 1 }}>
+        <ScrollView style={styles.container} contentContainerStyle={{ flex: 1 }}>
             {shops.length != 0 ? <FlatList
                 data={shops}
                 renderItem={renderItem}
