@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity ,Platform } from 'react-native'
 import { AuthContext } from '../context'
 
 const HomeProductCard = ({ id, title, price, category, description, navigation, imageUri, shopId, distance, recommended }) => {
@@ -53,8 +53,8 @@ const HomeProductCard = ({ id, title, price, category, description, navigation, 
                 <View style={styles.detailsContainer}>
                     <Text style={styles.productTitle}>{title}</Text>
                     <Text style={styles.productCat}>{category}</Text>
+                    {/* {distance ? <Text style={styles.productCat}>{dist}</Text> : null} */}
                     {price ? <Text style={styles.priceTag}> ₹{price}.00 INR  </Text> : null}
-                    {distance ? <Text style={styles.productCat}>{dist}</Text> : null}
                     {/* {recommended==1?<Text style={styles.productCat}>RECOMMENDED</Text>:null} */}
                 </View>
             </View>
@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: 14,
         textAlign: 'left',
-        fontWeight: '500',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         textTransform: 'uppercase',
-        letterSpacing: 1
+        letterSpacing: 1,
 
     },
     productCat: {
@@ -100,11 +100,12 @@ const styles = StyleSheet.create({
     },
     priceTag: {
         fontSize: 13,
-        fontWeight: '400',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         color: 'black',
         marginTop: 7,
         marginLeft: -3,
-        letterSpacing: 1
+        letterSpacing: 1,
+        color:'#FF5733'
     },
     tinyLogo: {
         width: "100%",

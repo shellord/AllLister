@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import Constants from 'expo-constants'
 import { TabBar } from 'react-native-tab-view';
-import HomeProductCardList from '../components/HomeProductCardList'
 import CategoryStoreList from '../components/CategoryStoreList'
 import CategoryProductList from '../components/CategoryProductList'
 

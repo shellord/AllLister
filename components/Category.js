@@ -3,7 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    Image
+    Image,
+    Platform
 } from "react-native";
 import { AuthContext } from '../context'
 
@@ -23,7 +24,7 @@ const Category =({name,imageUri}) => {
                     />
                 </View>
                 <View style={{paddingBottom:10,paddingTop:10 }}>
-                    <Text style={{textTransform:'uppercase',fontWeight:'500'}}>{name}</Text>
+                    <Text style={{textTransform:'uppercase',letterSpacing:1,fontWeight:Platform.OS === 'ios' ? "600" : "bold",}}>{name}</Text>
                 </View>
             </View>
         );

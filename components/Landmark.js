@@ -24,9 +24,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
         marginRight: 10,
-        borderLeftWidth: 0.5,
-        borderWidth: 0,
-        borderColor: 'black'
+        borderLeftColor: 'black',
+        borderWidth: 0.5,
+        borderColor: 'transparent'
     },
     locationText: {
         marginLeft: 10,

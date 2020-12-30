@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Platform } from 'react-native'
 
 const ProdcutScroll = ({ id, title, price, category, description, navigation, imageUri, shopName, itemTel }) => {
     return (
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: 14,
         textAlign: 'left',
-        fontWeight: '500',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         textTransform: 'uppercase',
         letterSpacing: 1
 
@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: 'grey',
         textTransform: 'uppercase',
-        fontWeight: '500',
-        letterSpacing: 1
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
+        letterSpacing: 1,
     },
     priceTag: {
         fontSize: 13,
-        fontWeight: '400',
-        color: 'black',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
+        color: 'tomato',
         marginTop: 7,
         marginLeft: -3,
         letterSpacing: 1

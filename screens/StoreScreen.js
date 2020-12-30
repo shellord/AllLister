@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, Linking, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, Image, Linking ,Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import ProductScroll from '../components/ProdcutScroll'
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        paddingTop: Constants.statusBarHeight
     },
     textContainer: {
         flex: 1,
@@ -93,13 +92,13 @@ const styles = StyleSheet.create({
         marginTop: 1,
         fontSize: 12,
         textTransform: 'uppercase',
-        fontWeight: "500",
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         paddingBottom: 5
     },
     itemText: {
         fontSize: 22,
-        fontWeight: '600',
-        color: 'black',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
+        color: 'tomato',
         textTransform: 'uppercase',
         letterSpacing: 2,
         paddingBottom: 5,
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
     detText: {
         marginTop: 20,
         fontSize: 16,
-        fontWeight: '500',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         marginBottom: 10,
         letterSpacing: 2
     },

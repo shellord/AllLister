@@ -23,7 +23,7 @@ const LoyalProductList = ({ searchtext, navigation }) => {
                     .then(json => {
                         setproducts(json.response)
                         console.log(products)
-                    })
+    })
                 //     fetch(API_URL + "lssearch/" + userLat + "/" + userLong + "/" + loyalshop + "/" + searchtext)
                 //     .then(response => response.json())
                 //     .then(json => {

@@ -24,9 +24,10 @@ export default Header
 
 const styles = StyleSheet.create({
     headerContainer: {
-        marginBottom: 10,
+        // marginBottom: 10,
         justifyContent: 'space-between',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        backgroundColor: '#FFC300'
 
     },
     headerTextStyle: {

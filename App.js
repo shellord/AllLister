@@ -99,19 +99,28 @@ const HomeStackScreen = () => (
       component={StoreScreen}
       options={
         {
-          headerShown: false
+          headerTitle: '',
+          headerBackTitle: 'back',
+          headerTintColor: 'black',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#FFC300'
+          },
         }
       }
     />
     <HomeStack.Screen
       name="categories"
       component={Categories}
-
       options={
         {
-          headerShown: false,
-          headerTitle: 'BACK',
-
+          headerTitle: '',
+          headerBackTitle: 'back',
+          headerTintColor: 'black',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#FFC300'
+          },
         }
       }
     />
@@ -120,9 +129,14 @@ const HomeStackScreen = () => (
       component={CategoryExpand}
       options={
         {
-          showLabel: false,
-          title: 'CATEGORIES',
-          headerShown: true
+          headerTitle: '',
+          headerBackTitle: 'back',
+          headerTintColor: 'black',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#FFC300'
+          },
+
         }
       }
     />
@@ -133,7 +147,13 @@ const HomeStackScreen = () => (
       component={Product}
       options={
         {
-          headerShown: false
+          headerTitle: '',
+          headerBackTitle: 'back',
+          headerTintColor: 'black',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#FFC300'
+          },
         }
       }
     />
@@ -142,7 +162,13 @@ const HomeStackScreen = () => (
       component={SearchExpand}
       options={
         {
-          headerShown: false
+          headerTitle: '',
+          headerBackTitle: 'back',
+          headerTintColor: 'black',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#FFC300'
+          },
         }
       }
     />
@@ -151,7 +177,13 @@ const HomeStackScreen = () => (
       component={ShopSearch}
       options={
         {
-          headerShown: false
+          headerTitle: '',
+          headerBackTitle: 'back',
+          headerTintColor: 'black',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#FFC300'
+          },
         }
       }
     />
@@ -162,7 +194,13 @@ const HomeStackScreen = () => (
       component={NearYou}
       options={
         {
-          headerShown: false
+          headerTitle: '',
+          headerBackTitle: 'back',
+          headerTintColor: 'black',
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#FFC300'
+          },
         }
       }
     />
@@ -236,9 +274,15 @@ const TabScreen = () => (
     tabBarOptions={
       {
         showLabel: true,
-        activeTintColor: 'black',
-        inactiveTintColor: 'gray',
+        activeTintColor: 'white',
+        inactiveTintColor: 'black',
+        activeBackgroundColor: '#FF9E08',
+        inactiveBackgroundColor: '#FFC300',
+        style: {
+          backgroundColor: "#FFC300",
+        },
       }
+
     }
   >
     <Tabs.Screen
@@ -249,6 +293,7 @@ const TabScreen = () => (
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="ios-home" color={color} size={size} />
           )
+
         }
       }
     />

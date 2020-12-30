@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { StyleSheet, Text, View ,TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View ,TouchableOpacity,Platform } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler' 
 import MaterialStoreCard from '../components/MaterialStoreCard'
 import {AuthContext} from '../context'
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     titleStyle:{
         fontSize:18,
         marginLeft:10,
-        fontWeight:"600",
-        letterSpacing:2
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
+        letterSpacing:2,
         
     }
 })

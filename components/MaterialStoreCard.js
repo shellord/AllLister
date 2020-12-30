@@ -1,6 +1,6 @@
 import { NavigationHelpersContext } from '@react-navigation/native'
 import React, { useContext } from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image,Platform } from 'react-native'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { AuthContext } from '../context'
@@ -39,7 +39,7 @@ const MaterialStoreCard = ({ id, name, tel, distance, otime, ctime, navigation, 
                         {distance ? <Text style={styles.timeTitle}>{otime} - {ctime}</Text> : null}
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                            {distance ? <Icon name="location-arrow" size={14} color="black" /> : null}
+                            {distance ? <Icon name="location-arrow" size={14} color="black"/> : null}
 
 
                             {distance ?
@@ -79,9 +79,10 @@ const styles = StyleSheet.create({
     },
     mainTitle: {
         fontSize: 15,
-        fontWeight: '600',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         textTransform: 'uppercase',
-        letterSpacing: 0.7
+        letterSpacing: 0.7,
+        color:'#FF5733',
     },
     telTitle: {
         fontSize: 15,
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: '500',
         color: 'black',
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
     },
     distanceTitle: {
         fontSize: 14,
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
         color: 'black',
         marginLeft: 5,
         textTransform: 'uppercase',
-        letterSpacing: 0.5
+        letterSpacing: 0.5,
+        
     }
 })

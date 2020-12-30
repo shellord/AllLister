@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Image, SafeAreaView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, SafeAreaView, TouchableOpacity,Platform } from 'react-native'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import Category from '../components/Category'
 import { AuthContext } from '../context'
@@ -28,7 +28,7 @@ const StoreCategory = ({ navigation }) => {
             >
                 <View style={{ flex: 1, backgroundColor: 'white' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={{ fontSize: 18, letterSpacing: 2, fontWeight: '600', paddingHorizontal: 20 }}>
+                        <Text style={{ fontSize: 18, letterSpacing: 2, fontWeight: Platform.OS === 'ios' ? "600" : "bold", paddingHorizontal: 20 }}>
                             CATEGORIES
                             </Text>
                         <TouchableOpacity onPress={() => { navigation.push('categories'), { navigation: navigation } }}>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginLeft: 15,
         fontWeight: "600",
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
     },
     viewAllStyle: {
         color: 'black',

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, Linking } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, Platform ,Linking } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import Carousel from '../components/Carousel'
@@ -122,11 +122,12 @@ const styles = StyleSheet.create({
     },
     itemTitle: {
         fontSize: 22,
-        fontWeight: '600',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         marginTop: 10,
         marginBottom: 5,
         textTransform: 'uppercase',
-        letterSpacing: 1
+        letterSpacing: 1,
+        color:'tomato'
     },
     categoryTitle: {
         fontSize: 16,
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     },
     itemPrice: {
         fontSize: 38,
-        fontWeight: '800'
+        fontWeight: Platform.OS === 'ios' ? "800" : "bold",
     },
     itemPriceFooter: {
         fontSize: 18,
@@ -166,19 +167,21 @@ const styles = StyleSheet.create({
     detailsText: {
         fontSize: 16,
         marginBottom: 10,
-        fontWeight: '600',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         textTransform: 'uppercase',
         marginLeft: 3,
-        letterSpacing: 0.5
+        letterSpacing: 0.5,
+        color:'tomato'
     },
     relatedText: {
         marginTop: 10,
         fontSize: 16,
         marginBottom: 10,
-        fontWeight: '600',
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         textTransform: 'uppercase',
         marginLeft: 3,
-        letterSpacing: 0.5
+        letterSpacing: 0.5,
+        color:'tomato'
     },
     infoContainer: {
         flexDirection: 'row',

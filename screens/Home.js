@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, Platform, SafeAreaView } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import Constants from 'expo-constants'
 import Header from '../components/Header'
@@ -23,17 +23,21 @@ const Home = ({ navigation }) => {
     // }, [userLat,userLong])
 
     return (
-        <View style={styles.container}>
-            <Header navigation={navigation} />
-            <ScrollView >
-                <HomeAds />
-                {/* <HeaderWelcome/> */}
-                <StoreCategory navigation={navigation} />
-                <MaterialStoreCardList navigation={navigation} />
-                <Text style={styles.titleStyle}> FEATURED PRODUCTS</Text>
-                <HomeProductCardList navigation={navigation} />
-            </ScrollView>
-        </View>
+        <>
+            <SafeAreaView style={styles.container} />
+            <View style={styles.bottomSafeArea}>
+                <Header navigation={navigation} />
+                <ScrollView >
+                    {/* <HeaderWelcome/> */}
+                    <HomeAds />
+                    <StoreCategory navigation={navigation} />
+                    <MaterialStoreCardList navigation={navigation} />
+                    <Text style={styles.titleStyle}> FEATURED PRODUCTS</Text>
+                    <HomeProductCardList navigation={navigation} />
+                </ScrollView>
+            </View>
+        </>
+
     )
 }
 
@@ -42,13 +46,17 @@ export default Home
 const styles = StyleSheet.create({
     container: {
         paddingTop: Constants.statusBarHeight,
-        flex: 1,
+        flex: 0,
+        backgroundColor: '#FFC300'
+    },
+    bottomSafeArea: {
+        flex: 2,
         backgroundColor: 'white'
     },
     titleStyle: {
         fontSize: 18,
         marginLeft: 10,
-        fontWeight: "600",
+        fontWeight: Platform.OS === 'ios' ? "600" : "bold",
         letterSpacing: 2
     }
 })
