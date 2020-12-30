@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react'
 import { StyleSheet, ScrollView, FlatList } from 'react-native'
 import { AuthContext } from '../context'
 import HomeProductCard from '../components/HomeProductCard'
-import {Firebase} from '../config'
+import { Firebase } from '../config'
 
 const LoyalProductList = ({ searchtext, navigation }) => {
 
@@ -18,28 +18,28 @@ const LoyalProductList = ({ searchtext, navigation }) => {
                 .then(response => response.json())
                 .then(json => {
                     setloyalshop(json.response[0].shopId)
-                    fetch(API_URL + "lpsearch/" + userLat + "/" + userLong + "/" + json.response[0].shopId+"/"+searchtext)
-                    .then(response => response.json())
-                    .then(json => {
-                        setproducts(json.response)
-                        console.log(products)
-    })
-                //     fetch(API_URL + "lssearch/" + userLat + "/" + userLong + "/" + loyalshop + "/" + searchtext)
-                //     .then(response => response.json())
-                //     .then(json => {
-                //         setshop(json.response)
-                //     })
-                // }).catch(e => console.log(e))
+                    fetch(API_URL + "lpsearch/" + userLat + "/" + userLong + "/" + json.response[0].shopId + "/" + searchtext)
+                        .then(response => response.json())
+                        .then(json => {
+                            setproducts(json.response)
+                        })
+                    //     fetch(API_URL + "lssearch/" + userLat + "/" + userLong + "/" + loyalshop + "/" + searchtext)
+                    //     .then(response => response.json())
+                    //     .then(json => {
+                    //         setshop(json.response)
+                    //     })
+                    // }).catch(e => console.log(e))
 
-            // fetch(API_URL + "psearch/" + userLat + "/" + userLong + "/" + searchtext)
-            //     .then(response => response.json())
-            //     .then(json => {
-            //         setproducts(json.response)
-            //     }).catch(e => console.log(e))
-            })}
+                    // fetch(API_URL + "psearch/" + userLat + "/" + userLong + "/" + searchtext)
+                    //     .then(response => response.json())
+                    //     .then(json => {
+                    //         setproducts(json.response)
+                    //     }).catch(e => console.log(e))
+                })
+        }
 
 
-        
+
     }, [searchtext])
 
     const renderItem = ({ item }) => (

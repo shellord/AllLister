@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity ,Platform } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Platform } from 'react-native'
 import { AuthContext } from '../context'
 
 const HomeProductCard = ({ id, title, price, category, description, navigation, imageUri, shopId, distance, recommended }) => {
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         marginTop: 7,
         marginLeft: -3,
         letterSpacing: 1,
-        color:'#FF5733'
+        color: '#FF5733'
     },
     tinyLogo: {
         width: "100%",

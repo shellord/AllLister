@@ -1,9 +1,9 @@
-import React,{useEffect,useContext,useState} from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { StyleSheet, ScrollView, FlatList } from 'react-native'
 import { AuthContext } from '../context'
 import HomeProductCard from '../components/HomeProductCard'
 
-const SearchProductList = ({searchtext,navigation}) => {
+const SearchProductList = ({ searchtext, navigation }) => {
 
     const { API_URL, userLat, userLong } = useContext(AuthContext)
 
@@ -35,7 +35,7 @@ const SearchProductList = ({searchtext,navigation}) => {
                     setproducts(json.response)
                 }).catch(e => console.log(e))
 
-    
+
 
         }
     }, [searchtext])
@@ -64,5 +64,5 @@ const SearchProductList = ({searchtext,navigation}) => {
 export default SearchProductList
 
 const styles = StyleSheet.create({
-   
+
 })

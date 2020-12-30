@@ -19,7 +19,7 @@ export default function SearchExpand({ navigation, route }) {
     route.params ? searchTerm = route.params.searchTerm : ''
     const [searchtext, setsearchtext] = useState(searchTerm)
 
-    const FirstRoute = () => {
+    const ProductRoute = () => {
         return (
             <View style={[styles.scene, { backgroundColor: 'white' }]} >
                 <SearchProductList navigation={navigation} searchtext={searchtext} />
@@ -27,28 +27,36 @@ export default function SearchExpand({ navigation, route }) {
         )
     }
 
-    const SecondRoute = () => (
+    const ShopRoute = () => (
         <View style={[styles.scene, { backgroundColor: 'white' }]} >
             <SearchShopList navigation={navigation} searchtext={searchtext} />
         </View>
     );
 
-    const ThirdRoute = () => (
+    const LoyalProductRoute = () => (
+        <View style={[styles.scene, { backgroundColor: 'white' }]} >
+            <LoyalProductList navigation={navigation} searchtext={searchtext} />
+        </View>
+    );
+
+    const AllRoute = () => (
         <View style={[styles.scene, { backgroundColor: 'white' }]} >
             <LoyalProductList navigation={navigation} searchtext={searchtext} />
         </View>
     );
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'first', title: 'ProductS' },
-        { key: 'second', title: 'Shops' },
-        { key: 'third', title: 'favorite' },
+        { key: 'first', title: 'All' },
+        { key: 'second', title: 'Products' },
+        { key: 'third', title: 'Shops' },
+        { key: 'fourth', title: 'favorite' }
     ]);
 
     const renderScene = SceneMap({
-        first: FirstRoute,
-        second: SecondRoute,
-        third: ThirdRoute
+        first: AllRoute,
+        second: ProductRoute,
+        third: ShopRoute,
+        fourth: LoyalProductRoute
     });
 
     const renderTabBar = props => (
@@ -56,9 +64,9 @@ export default function SearchExpand({ navigation, route }) {
             {...props}
             indicatorStyle={{ backgroundColor: 'black' }}
             style={{ backgroundColor: 'white' }}
-            labelStyle={{ color: 'black', fontWeight: '600', letterSpacing: 2 }}
+            labelStyle={{ color: 'black', fontWeight: '700', letterSpacing: 0, fontSize: 10 }}
         />
-    );
+    )
 
     return (
         <View style={styles.container}>
