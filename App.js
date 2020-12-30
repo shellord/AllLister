@@ -273,13 +273,13 @@ const TabScreen = () => (
   <Tabs.Navigator
     tabBarOptions={
       {
-        showLabel: true,
+        showLabel: false,
         activeTintColor: 'white',
         inactiveTintColor: 'black',
         activeBackgroundColor: '#FF9E08',
         inactiveBackgroundColor: '#FFC300',
         style: {
-          backgroundColor: "#FFC300",
+          backgroundColor: "#FF9E08",
         },
       }
 
