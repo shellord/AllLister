@@ -3,13 +3,13 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react
 import HomeProductCard from './HomeProductCard'
 import { AuthContext } from '../context'
 
-const CategoryProductList = ({ navigation,category}) => {
+const CategoryProductList = ({ navigation, category }) => {
 
-    const { API_URL,userLat,userLong } = useContext(AuthContext)
+    const { API_URL, userLat, userLong } = useContext(AuthContext)
     const [productlist, setproductlist] = useState([{}])
 
     useEffect(() => {
-        fetch(API_URL + 'product/category/' + category+"/"+userLat+"/"+userLong)
+        fetch(API_URL + 'product/category/' + category + "/" + userLat + "/" + userLong)
             .then(response => response.json())
             .then(json => {
                 setproductlist(json.response)
@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: StatusBar.currentHeight || 0,
-        marginLeft: 5
+        marginLeft: 5,
+
     },
     item: {
         backgroundColor: '#f9c2ff',

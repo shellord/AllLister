@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, StyleSheet, Dimensions, Text,TextInput } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, TextInput } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import Constants from 'expo-constants'
 import { TabBar } from 'react-native-tab-view';
@@ -22,14 +22,14 @@ export default function SearchExpand({ navigation, route }) {
     const FirstRoute = () => {
         return (
             <View style={[styles.scene, { backgroundColor: 'white' }]} >
-                <SearchProductList navigation={navigation} searchtext={searchtext}/>
+                <SearchProductList navigation={navigation} searchtext={searchtext} />
             </View>
         )
     }
 
     const SecondRoute = () => (
         <View style={[styles.scene, { backgroundColor: 'white' }]} >
-            <SearchShopList navigation={navigation} searchtext={searchtext}/>
+            <SearchShopList navigation={navigation} searchtext={searchtext} />
         </View>
     );
 
@@ -62,40 +62,44 @@ export default function SearchExpand({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            
-            <Text style={{ fontSize: 23, fontWeight: '500', marginBottom: 30, textAlign: 'center', marginTop: 50 }}>SEARCH</Text>
 
             <View style={styles.searchContainer}>
                 <Icon style={styles.icon} name="search" size={14} color="black" />
-                <TextInput placeholder="Search for products and shop" style={styles.TextInp} onChangeText={text => setsearchtext(text)} value={searchtext} />
+                <TextInput placeholder="SEARCH PRODUCTS AND SHOP" onChangeText={text => setsearchtext(text)} value={searchtext} />
             </View>
-        <TabView
-            renderTabBar={renderTabBar}
-            navigationState={{ index, routes }}
-            renderScene={renderScene}
-            onIndexChange={setIndex}
-            initialLayout={initialLayout}
-        />
+            <TabView
+                renderTabBar={renderTabBar}
+                navigationState={{ index, routes }}
+                renderScene={renderScene}
+                onIndexChange={setIndex}
+                initialLayout={initialLayout}
+            />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        paddingTop:Constants.statusBarHeight,
-        backgroundColor:'white'
+    container: {
+        flex: 1,
+        paddingTop: Constants.statusBarHeight,
+        backgroundColor: 'white',
+        padding: 20
     },
     scene: {
         flex: 1,
     },
     searchContainer: {
         flexDirection: 'row',
-        // justifyContent: 'space-between',
         borderColor: 'grey',
         borderWidth: 0.5,
         height: 40,
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '90%',
+        borderWidth: 0,
+        borderBottomWidth: 0.5,
+        marginLeft: 20,
+        marginBottom: 20,
+        marginTop: 20,
     },
     icon: {
         marginLeft: 10,

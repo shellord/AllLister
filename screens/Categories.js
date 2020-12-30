@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, View,Image } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import CategoriesList from '../components/CategoriesList'
 import Constants from 'expo-constants';
 import { AuthContext } from '../context'
 
-const Categories = ({navigation}) => {
+const Categories = ({ navigation }) => {
     const { API_URL } = React.useContext(AuthContext)
     const [storecategories, setstorecategories] = useState([{}])
 
@@ -20,23 +20,23 @@ const Categories = ({navigation}) => {
 
     return (
         <>
-        <ScrollView style={styles.container}>
-            <Text style={styles.header}>CATEGORIES</Text>
-            
+            <ScrollView style={styles.container}>
+                <Text style={styles.header}>CATEGORIES</Text>
 
-                    {storecategories.map(elem => {            
-                        return(
-                            <TouchableOpacity onPress={() => { navigation.navigate('categoryexpand',{category:elem.name}) }}>
 
-                        <CategoriesList navigation={navigation} imageUri={elem.image}
-                            name={elem.name}
-                            
-                        />
-                            </TouchableOpacity>
+                {storecategories.map(elem => {
+                    return (
+                        <TouchableOpacity onPress={() => { navigation.navigate('categoryexpand', { category: elem.name }) }}>
 
-                        )
-                    })}
-        </ScrollView>
+                            <CategoriesList navigation={navigation} imageUri={elem.image}
+                                name={elem.name}
+
+                            />
+                        </TouchableOpacity>
+
+                    )
+                })}
+            </ScrollView>
         </>
     )
 }
@@ -44,17 +44,17 @@ const Categories = ({navigation}) => {
 export default Categories
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        backgroundColor:'white',
-        flexDirection:'column',
-        padding:30,
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        flexDirection: 'column',
+        padding: 30,
         paddingTop: Constants.statusBarHeight,
     },
-    header:{
-        fontSize:20,
-        fontWeight:"600",
-        paddingBottom:20,
-        letterSpacing:2
+    header: {
+        fontSize: 20,
+        fontWeight: "600",
+        paddingBottom: 20,
+        letterSpacing: 2
     }
 })
