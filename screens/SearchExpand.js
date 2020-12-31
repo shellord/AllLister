@@ -42,6 +42,9 @@ export default function SearchExpand({ navigation, route }) {
     const AllRoute = () => (
         <View style={[styles.scene, { backgroundColor: 'white' }]} >
             <LoyalProductList navigation={navigation} searchtext={searchtext} />
+            <SearchShopList navigation={navigation} searchtext={searchtext} />
+            <SearchProductList navigation={navigation} searchtext={searchtext} />
+
         </View>
     );
     const [index, setIndex] = React.useState(0);
