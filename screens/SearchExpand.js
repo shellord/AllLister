@@ -9,6 +9,7 @@ import SearchShopList from '../components/SearchShopList'
 import LoyalProductList from '../components/LoyalProductList'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { ScrollView } from 'react-native-gesture-handler';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -40,12 +41,11 @@ export default function SearchExpand({ navigation, route }) {
     );
 
     const AllRoute = () => (
-        <View style={[styles.scene, { backgroundColor: 'white' }]} >
+        <ScrollView showsVerticalScrollIndicator={false} style={[styles.scene, { backgroundColor: 'white' }]} >
             <LoyalProductList navigation={navigation} searchtext={searchtext} />
             <SearchShopList navigation={navigation} searchtext={searchtext} />
             <SearchProductList navigation={navigation} searchtext={searchtext} />
-
-        </View>
+        </ScrollView>
     );
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
