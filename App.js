@@ -99,7 +99,7 @@ const HomeStackScreen = () => (
       component={StoreScreen}
       options={
         {
-          headerTitle: '',
+          headerTitle: 'Shop',
           headerBackTitle: 'back',
           headerTintColor: 'black',
           headerShown: true,
@@ -147,7 +147,7 @@ const HomeStackScreen = () => (
       component={Product}
       options={
         {
-          headerTitle: '',
+          headerTitle: 'Product',
           headerBackTitle: 'back',
           headerTintColor: 'black',
           headerShown: true,

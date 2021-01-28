@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, Platform ,Linking } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, Platform, Linking } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import Carousel from '../components/Carousel'
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        padding: 20,
+        padding: 10,
         flexDirection: 'column',
     },
     imageStyle: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         textTransform: 'uppercase',
         letterSpacing: 1,
-        color:'tomato'
+        color: 'tomato'
     },
     categoryTitle: {
         fontSize: 16,
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         marginLeft: 3,
         letterSpacing: 0.5,
-        color:'tomato'
+        color: 'tomato'
     },
     relatedText: {
         marginTop: 10,
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         marginLeft: 3,
         letterSpacing: 0.5,
-        color:'tomato'
+        color: 'tomato'
     },
     infoContainer: {
         flexDirection: 'row',

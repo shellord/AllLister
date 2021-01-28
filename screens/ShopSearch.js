@@ -19,7 +19,7 @@ const ShopSearch = ({ navigation, route }) => {
 
         if (searchtext) {
 
-            fetch(API_URL + "psearch/shop/" + route.params.shopId + "/" + searchtext)
+            fetch(API_URL + "prodsearch/shop/" + route.params.shopId + "/" + searchtext)
                 .then(response => response.json())
                 .then(json => {
                     setproducts(json.response)
