@@ -18,11 +18,11 @@ const GetStarted = ({ navigation }) => {
                         <Text style={styles.userBtnText}>LOGIN</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('http://alllisterapi.ddns.net/vendor')} >
+                {/* <TouchableOpacity onPress={() => Linking.openURL('http://alllisterapi.ddns.net/vendor')} >
                     <View style={styles.vendorBtn}>
                         <Text >Login / Register as Vendor</Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
 
         </View>

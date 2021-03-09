@@ -18,12 +18,13 @@ const ShopSearch = ({ navigation, route }) => {
     useEffect(() => {
 
         if (searchtext) {
-
-            fetch(API_URL + "prodsearch/shop/" + route.params.shopId + "/" + searchtext)
-                .then(response => response.json())
-                .then(json => {
-                    setproducts(json.response)
-                }).catch(e => console.log(e))
+            if (/^[a-zA-Z]+$/.test(searchtext)) {
+                fetch(API_URL + "prodsearch/shop/" + route.params.shopId + "/" + searchtext)
+                    .then(response => response.json())
+                    .then(json => {
+                        setproducts(json.response)
+                    }).catch(e => console.log(e))
+            }
         }
     }, [searchtext])
 
